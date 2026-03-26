@@ -2,16 +2,18 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Users, Trophy, User, Receipt } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export const MobileNav = ({ userType = 'user' }) => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const userNavItems = [
-    { path: '/user', icon: Home, label: 'Home', testid: 'mobile-nav-home' },
-    { path: '/user/passbook', icon: Receipt, label: 'Passbook', testid: 'mobile-nav-passbook' },
-    { path: '/user/referrals', icon: Users, label: 'Referrals', testid: 'mobile-nav-referrals' },
-    { path: '/user/leaderboard', icon: Trophy, label: 'Leaderboard', testid: 'mobile-nav-leaderboard' },
-    { path: '/user/profile', icon: User, label: 'Profile', testid: 'mobile-nav-profile' }
+    { path: '/user', icon: Home, label: t('nav.home'), testid: 'mobile-nav-home' },
+    { path: '/user/passbook', icon: Receipt, label: t('nav.passbook'), testid: 'mobile-nav-passbook' },
+    { path: '/user/referrals', icon: Users, label: t('nav.referrals'), testid: 'mobile-nav-referrals' },
+    { path: '/user/leaderboard', icon: Trophy, label: t('nav.leaderboard'), testid: 'mobile-nav-leaderboard' },
+    { path: '/user/profile', icon: User, label: t('nav.profile'), testid: 'mobile-nav-profile' }
   ];
 
   if (userType !== 'user') return null;

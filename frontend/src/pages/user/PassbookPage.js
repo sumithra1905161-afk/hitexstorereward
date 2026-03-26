@@ -4,6 +4,7 @@ import { UserLayout } from '@/components/Layout';
 import { mockPassbookTransactions, mockUser } from '@/lib/mockData';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/lib/LanguageContext';
 import {
   Select,
   SelectContent,
@@ -13,6 +14,7 @@ import {
 } from '@/components/ui/select';
 
 export default function PassbookPage() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState('all');
 
   const filteredTransactions = filter === 'all'
@@ -36,46 +38,39 @@ export default function PassbookPage() {
 
   const getTransactionLabel = (type) => {
     switch (type) {
-      case 'purchase':
-        return 'Purchase (3%)';
-      case 'referral_commission':
-        return 'Referral (2%)';
-      case 'scratch_bonus':
-        return 'Scratch Bonus';
-      case 'withdrawal':
-        return 'Withdrawal';
-      default:
-        return 'Transaction';
+      case 'purchase': return t('passbook.purchase3');
+      case 'referral_commission': return t('passbook.referral2');
+      case 'scratch_bonus': return t('passbook.scratchBonus');
+      case 'withdrawal': return t('passbook.withdrawal');
+      default: return t('passbook.transaction');
     }
   };
 
   return (
     <UserLayout>
       <div className="max-w-6xl mx-auto p-6 md:p-12 space-y-12 fade-in">
-        {/* Header */}
         <section>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-3">
-            Transaction Passbook
+            {t('passbook.title')}
           </h1>
           <p className="text-base text-[#A1A1AA] leading-relaxed">
-            Complete history of your purchases, referral commissions, and withdrawals.
+            {t('passbook.subtitle')}
           </p>
         </section>
 
-        {/* Summary Cards */}
         <section data-testid="passbook-summary-section" className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-transparent border border-[#10B981] rounded-lg p-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
             <div className="flex items-center gap-3 mb-3">
               <TrendingUp className="w-5 h-5 text-[#10B981]" />
               <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                Total Earned
+                {t('passbook.totalEarned')}
               </p>
             </div>
             <p className="text-3xl font-mono font-black text-[#10B981]">
               {formatCurrency(
                 mockPassbookTransactions
-                  .filter(t => t.points_credited > 0)
-                  .reduce((sum, t) => sum + t.points_credited, 0)
+                  .filter(txn => txn.points_credited > 0)
+                  .reduce((sum, txn) => sum + txn.points_credited, 0)
               )}
             </p>
           </div>
@@ -84,14 +79,14 @@ export default function PassbookPage() {
             <div className="flex items-center gap-3 mb-3">
               <TrendingDown className="w-5 h-5 text-[#EF4444]" />
               <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                Total Withdrawn
+                {t('passbook.totalWithdrawn')}
               </p>
             </div>
             <p className="text-3xl font-mono font-black text-[#EF4444]">
               {formatCurrency(
                 mockPassbookTransactions
-                  .filter(t => t.points_debited > 0)
-                  .reduce((sum, t) => sum + t.points_debited, 0)
+                  .filter(txn => txn.points_debited > 0)
+                  .reduce((sum, txn) => sum + txn.points_debited, 0)
               )}
             </p>
           </div>
@@ -100,7 +95,7 @@ export default function PassbookPage() {
             <div className="flex items-center gap-3 mb-3">
               <FileText className="w-5 h-5 text-[#10B981]" />
               <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                Current Balance
+                {t('passbook.currentBalance')}
               </p>
             </div>
             <p className="text-3xl font-mono font-black text-white">
@@ -109,10 +104,9 @@ export default function PassbookPage() {
           </div>
         </section>
 
-        {/* Filter */}
         <section className="flex items-center justify-between">
           <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-            Transaction History ({filteredTransactions.length})
+            {t('passbook.transactionHistory')} ({filteredTransactions.length})
           </p>
           <Select value={filter} onValueChange={setFilter}>
             <SelectTrigger
@@ -123,25 +117,24 @@ export default function PassbookPage() {
             </SelectTrigger>
             <SelectContent className="bg-[#09090B] border border-[#222222] text-white">
               <SelectItem value="all" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
-                All Transactions
+                {t('passbook.allTransactions')}
               </SelectItem>
               <SelectItem value="purchase" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
-                Purchases Only
+                {t('passbook.purchasesOnly')}
               </SelectItem>
               <SelectItem value="referral_commission" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
-                Referral Commissions
+                {t('passbook.referralCommissions')}
               </SelectItem>
               <SelectItem value="scratch_bonus" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
-                Scratch Bonuses
+                {t('passbook.scratchBonuses')}
               </SelectItem>
               <SelectItem value="withdrawal" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
-                Withdrawals
+                {t('passbook.withdrawals')}
               </SelectItem>
             </SelectContent>
           </Select>
         </section>
 
-        {/* Transactions List */}
         <section data-testid="passbook-transactions-section" className="space-y-3">
           {filteredTransactions.map((txn) => (
             <div
@@ -155,7 +148,6 @@ export default function PassbookPage() {
               )}
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                {/* Icon & Type */}
                 <div className="md:col-span-2 flex items-center gap-3">
                   {getTransactionIcon(txn.type)}
                   <div>
@@ -168,7 +160,6 @@ export default function PassbookPage() {
                   </div>
                 </div>
 
-                {/* Description */}
                 <div className="md:col-span-3">
                   <p className="text-white font-medium text-sm mb-1">
                     {txn.description}
@@ -181,20 +172,18 @@ export default function PassbookPage() {
                   )}
                 </div>
 
-                {/* Amount Purchased */}
                 <div className="md:col-span-2">
                   <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-1">
-                    Purchase
+                    {t('passbook.purchaseLabel')}
                   </p>
                   <p className="text-white font-mono font-semibold">
                     {txn.amount_purchased > 0 ? formatCurrency(txn.amount_purchased) : '-'}
                   </p>
                 </div>
 
-                {/* Points Credited */}
                 <div className="md:col-span-2">
                   <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-1">
-                    Credited
+                    {t('passbook.credited')}
                   </p>
                   <p className={cn(
                     "font-mono font-bold",
@@ -204,10 +193,9 @@ export default function PassbookPage() {
                   </p>
                 </div>
 
-                {/* Points Debited */}
                 <div className="md:col-span-2">
                   <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-1">
-                    Debited
+                    {t('passbook.debited')}
                   </p>
                   <p className={cn(
                     "font-mono font-bold",
@@ -217,7 +205,6 @@ export default function PassbookPage() {
                   </p>
                 </div>
 
-                {/* Date & Balance */}
                 <div className="md:col-span-1 text-right">
                   <p className="text-[#A1A1AA] text-xs mb-2">
                     {formatDate(txn.date)}
@@ -226,7 +213,7 @@ export default function PassbookPage() {
                     {formatCurrency(txn.balance_after)}
                   </p>
                   <p className="text-[#71717A] text-xs uppercase tracking-wide">
-                    Balance
+                    {t('common.balance')}
                   </p>
                 </div>
               </div>

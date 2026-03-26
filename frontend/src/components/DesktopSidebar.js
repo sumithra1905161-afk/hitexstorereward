@@ -2,26 +2,28 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Users, Trophy, User, Receipt, DollarSign, Store, Gift, LogOut, BookOpen, UserCog, Settings as SettingsIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export const DesktopSidebar = ({ userType = 'user' }) => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const userNavItems = [
-    { path: '/user', icon: Home, label: 'Home', testid: 'sidebar-nav-home' },
-    { path: '/user/passbook', icon: BookOpen, label: 'Passbook', testid: 'sidebar-nav-passbook' },
-    { path: '/user/referrals', icon: Users, label: 'Referrals', testid: 'sidebar-nav-referrals' },
-    { path: '/user/leaderboard', icon: Trophy, label: 'Leaderboard', testid: 'sidebar-nav-leaderboard' },
-    { path: '/user/profile', icon: User, label: 'Profile', testid: 'sidebar-nav-profile' }
+    { path: '/user', icon: Home, label: t('nav.home'), testid: 'sidebar-nav-home' },
+    { path: '/user/passbook', icon: BookOpen, label: t('nav.passbook'), testid: 'sidebar-nav-passbook' },
+    { path: '/user/referrals', icon: Users, label: t('nav.referrals'), testid: 'sidebar-nav-referrals' },
+    { path: '/user/leaderboard', icon: Trophy, label: t('nav.leaderboard'), testid: 'sidebar-nav-leaderboard' },
+    { path: '/user/profile', icon: User, label: t('nav.profile'), testid: 'sidebar-nav-profile' }
   ];
 
   const adminNavItems = [
-    { path: '/admin', icon: Receipt, label: 'Approvals', testid: 'sidebar-nav-approvals' },
-    { path: '/admin/users', icon: Users, label: 'Users', testid: 'sidebar-nav-users' },
-    { path: '/admin/storekeepers', icon: UserCog, label: 'Storekeepers', testid: 'sidebar-nav-storekeepers' },
-    { path: '/admin/payouts', icon: DollarSign, label: 'Payouts', testid: 'sidebar-nav-payouts' },
-    { path: '/admin/stores', icon: Store, label: 'Stores', testid: 'sidebar-nav-stores' },
-    { path: '/admin/gifts', icon: Gift, label: 'Gifts', testid: 'sidebar-nav-gifts' },
-    { path: '/admin/settings', icon: SettingsIcon, label: 'Settings', testid: 'sidebar-nav-settings' }
+    { path: '/admin', icon: Receipt, label: t('nav.approvals'), testid: 'sidebar-nav-approvals' },
+    { path: '/admin/users', icon: Users, label: t('nav.users'), testid: 'sidebar-nav-users' },
+    { path: '/admin/storekeepers', icon: UserCog, label: t('nav.storekeepers'), testid: 'sidebar-nav-storekeepers' },
+    { path: '/admin/payouts', icon: DollarSign, label: t('nav.payouts'), testid: 'sidebar-nav-payouts' },
+    { path: '/admin/stores', icon: Store, label: t('nav.stores'), testid: 'sidebar-nav-stores' },
+    { path: '/admin/gifts', icon: Gift, label: t('nav.gifts'), testid: 'sidebar-nav-gifts' },
+    { path: '/admin/settings', icon: SettingsIcon, label: t('nav.settings'), testid: 'sidebar-nav-settings' }
   ];
 
   const navItems = userType === 'admin' ? adminNavItems : userNavItems;
@@ -32,10 +34,15 @@ export const DesktopSidebar = ({ userType = 'user' }) => {
       data-testid="desktop-sidebar"
     >
       {/* Logo */}
-      <div className="h-16 flex items-center px-6 border-b border-[#222222]">
-        <h1 className="text-xl font-black tracking-tight text-white">
-          Hitex <span className="text-[#10B981]">Spares</span>
-        </h1>
+      <div className="h-14 flex items-center px-6 border-b border-[#222222]">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-[#10B981] rounded-md flex items-center justify-center flex-shrink-0">
+            <span className="text-black font-black text-sm">H</span>
+          </div>
+          <h1 className="text-lg font-black tracking-tight text-white">
+            {t('brand.name')} <span className="text-[#10B981]">{t('brand.accent')}</span>
+          </h1>
+        </div>
       </div>
 
       {/* Navigation */}
@@ -75,7 +82,7 @@ export const DesktopSidebar = ({ userType = 'user' }) => {
           className="flex items-center gap-3 px-3 py-3 w-full text-[#A1A1AA] hover:text-white hover:bg-[#09090B] rounded-md transition-colors border border-transparent"
         >
           <LogOut className="w-5 h-5" />
-          <span className="text-sm font-semibold tracking-wide uppercase">Logout</span>
+          <span className="text-sm font-semibold tracking-wide uppercase">{t('common.logout')}</span>
         </button>
       </div>
     </aside>

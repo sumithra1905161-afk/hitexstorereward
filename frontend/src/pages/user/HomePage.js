@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useLanguage } from '@/lib/LanguageContext';
 import {
   Dialog,
   DialogContent,
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/dialog';
 
 export default function HomePage() {
+  const { t } = useLanguage();
   const unscratched = mockScratchCards.filter(c => !c.scratched).length;
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const [isQrOpen, setIsQrOpen] = useState(false);
@@ -23,10 +25,10 @@ export default function HomePage() {
 
   const handleWithdraw = () => {
     if (parseFloat(withdrawForm.amount) > mockUser.balance) {
-      alert('Insufficient balance!');
+      alert(t('home.insufficientBalance'));
       return;
     }
-    alert(`Withdrawal request of ${formatCurrency(parseFloat(withdrawForm.amount))} submitted to ${withdrawForm.upi_id}`);
+    alert(`${t('home.withdrawalSubmitted')} - ${formatCurrency(parseFloat(withdrawForm.amount))} → ${withdrawForm.upi_id}`);
     setIsWithdrawOpen(false);
     setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
   };
@@ -37,7 +39,7 @@ export default function HomePage() {
         {/* Balance Section */}
         <section data-testid="balance-section" className="space-y-4">
           <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-            Available Balance
+            {t('home.availableBalance')}
           </p>
           <h1 
             data-testid="user-balance" 
@@ -54,7 +56,7 @@ export default function HomePage() {
               data-testid="withdraw-balance-btn"
               className="bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-8 py-4 text-sm"
             >
-              Withdraw to UPI
+              {t('home.withdrawToUpi')}
             </button>
             <button
               onClick={() => setIsQrOpen(true)}
@@ -62,7 +64,7 @@ export default function HomePage() {
               className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide transition-colors rounded-md px-8 py-4 text-sm flex items-center gap-2"
             >
               <QrCodeIcon className="w-5 h-5" />
-              Show My QR
+              {t('home.showMyQr')}
             </button>
           </div>
         </section>
@@ -70,7 +72,7 @@ export default function HomePage() {
         {/* Quick Actions */}
         <section data-testid="quick-actions-section" className="space-y-6">
           <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-            Quick Actions
+            {t('home.quickActions')}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link
@@ -82,13 +84,13 @@ export default function HomePage() {
                 <Gift className="w-8 h-8 text-[#10B981]" />
                 {unscratched > 0 && (
                   <span className="bg-[#10B981] text-black font-bold text-xs px-2 py-1 rounded-full">
-                    {unscratched} NEW
+                    {unscratched} {t('home.newBadge')}
                   </span>
                 )}
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Scratch Cards</h3>
+              <h3 className="text-lg font-bold text-white mb-2">{t('home.scratchCards')}</h3>
               <p className="text-sm text-[#A1A1AA] leading-relaxed">
-                Scratch & win bonus rewards
+                {t('home.scratchCardsDesc')}
               </p>
             </Link>
 
@@ -98,9 +100,9 @@ export default function HomePage() {
               className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
             >
               <UserPlus className="w-8 h-8 mb-4 text-[#10B981]" />
-              <h3 className="text-lg font-bold text-white mb-2">Invite Colleague</h3>
+              <h3 className="text-lg font-bold text-white mb-2">{t('home.inviteColleague')}</h3>
               <p className="text-sm text-[#A1A1AA] leading-relaxed">
-                Earn 2% on their purchases
+                {t('home.inviteDesc')}
               </p>
             </Link>
 
@@ -109,9 +111,9 @@ export default function HomePage() {
               className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
             >
               <MapPin className="w-8 h-8 mb-4 text-[#10B981]" />
-              <h3 className="text-lg font-bold text-white mb-2">Find Store</h3>
+              <h3 className="text-lg font-bold text-white mb-2">{t('home.findStore')}</h3>
               <p className="text-sm text-[#A1A1AA] leading-relaxed">
-                Locate nearest partner store
+                {t('home.findStoreDesc')}
               </p>
             </button>
           </div>
@@ -121,7 +123,7 @@ export default function HomePage() {
         <section data-testid="stats-section" className="grid grid-cols-2 gap-6">
           <div className="bg-transparent border border-[#222222] rounded-lg p-6">
             <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
-              Monthly Volume
+              {t('home.monthlyVolume')}
             </p>
             <p className="text-3xl font-mono font-black text-white">
               {formatCurrency(mockUser.monthly_volume)}
@@ -129,7 +131,7 @@ export default function HomePage() {
           </div>
           <div className="bg-transparent border border-[#222222] rounded-lg p-6">
             <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
-              Rank This Month
+              {t('home.rankThisMonth')}
             </p>
             <p className="text-3xl font-mono font-black text-[#10B981]">
               #3
@@ -141,17 +143,16 @@ export default function HomePage() {
         <Dialog open={isQrOpen} onOpenChange={setIsQrOpen}>
           <DialogContent className="bg-[#000000] border-2 border-[#10B981] text-white max-w-md shadow-[0_0_50px_rgba(16,185,129,0.3)]">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white text-center">My QR Code</DialogTitle>
+              <DialogTitle className="text-2xl font-bold text-white text-center">{t('home.myQrCode')}</DialogTitle>
             </DialogHeader>
             <div className="space-y-6 mt-4">
-              {/* Branded QR Container */}
               <div className="bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] p-1 rounded-xl">
                 <div className="bg-white p-6 rounded-lg">
                   <div className="text-center mb-4">
                     <h2 className="text-2xl font-black text-[#000000] tracking-tight">
                       Hitex <span className="text-[#10B981]">Spares</span>
                     </h2>
-                    <p className="text-[#71717A] text-xs uppercase tracking-wider mt-1">Textile Rewards</p>
+                    <p className="text-[#71717A] text-xs uppercase tracking-wider mt-1">{t('brand.textileRewards')}</p>
                   </div>
                   <div className="flex items-center justify-center mb-4">
                     <QRCodeSVG
@@ -177,9 +178,9 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="text-center space-y-2">
-                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Scan at Store Checkout</p>
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">{t('home.scanAtStore')}</p>
                 <p className="text-[#71717A] text-xs leading-relaxed">
-                  Show this QR code to the storekeeper for instant verification and quick purchase entry
+                  {t('home.showQrDesc')}
                 </p>
               </div>
             </div>
@@ -190,12 +191,12 @@ export default function HomePage() {
         <Dialog open={isWithdrawOpen} onOpenChange={setIsWithdrawOpen}>
           <DialogContent className="bg-[#09090B] border border-[#222222] text-white max-w-md">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white">Withdraw to UPI</DialogTitle>
+              <DialogTitle className="text-2xl font-bold text-white">{t('home.withdrawTitle')}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 mt-4">
               <div className="bg-[#10B981] bg-opacity-10 border border-[#10B981] rounded-lg p-4">
                 <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-2">
-                  Available Balance
+                  {t('home.availableBalance')}
                 </p>
                 <p className="text-[#10B981] font-mono text-3xl font-black">
                   {formatCurrency(mockUser.balance)}
@@ -203,11 +204,11 @@ export default function HomePage() {
               </div>
               <div className="space-y-2">
                 <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Withdrawal Amount
+                  {t('home.withdrawalAmount')}
                 </Label>
                 <Input
                   type="number"
-                  placeholder="Enter amount"
+                  placeholder={t('home.enterAmount')}
                   value={withdrawForm.amount}
                   onChange={(e) => setWithdrawForm({ ...withdrawForm, amount: e.target.value })}
                   data-testid="withdraw-amount-input-home"
@@ -216,7 +217,7 @@ export default function HomePage() {
               </div>
               <div className="space-y-2">
                 <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  UPI ID
+                  {t('home.upiId')}
                 </Label>
                 <Input
                   type="text"
@@ -231,7 +232,7 @@ export default function HomePage() {
                 data-testid="confirm-withdraw-btn-home"
                 className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-6 text-base"
               >
-                Confirm Withdrawal
+                {t('home.confirmWithdrawal')}
               </Button>
             </div>
           </DialogContent>
