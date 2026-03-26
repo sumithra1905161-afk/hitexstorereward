@@ -15,9 +15,12 @@ import StorekeeperPage from '@/pages/storekeeper/StorekeeperPage';
 
 // Admin Portal Pages
 import AdminApprovalsPage from '@/pages/admin/AdminApprovalsPage';
+import AdminUsersPage from '@/pages/admin/AdminUsersPage';
+import AdminStorekeepersPage from '@/pages/admin/AdminStorekeepersPage';
 import AdminPayoutsPage from '@/pages/admin/AdminPayoutsPage';
 import AdminStoresPage from '@/pages/admin/AdminStoresPage';
 import AdminGiftsPage from '@/pages/admin/AdminGiftsPage';
+import AdminSettingsPage from '@/pages/admin/AdminSettingsPage';
 
 function App() {
   return (
@@ -40,9 +43,12 @@ function App() {
 
           {/* Admin Portal Routes */}
           <Route path="/admin" element={<AdminApprovalsPage />} />
+          <Route path="/admin/users" element={<AdminUsersPage />} />
+          <Route path="/admin/storekeepers" element={<AdminStorekeepersPage />} />
           <Route path="/admin/payouts" element={<AdminPayoutsPage />} />
           <Route path="/admin/stores" element={<AdminStoresPage />} />
           <Route path="/admin/gifts" element={<AdminGiftsPage />} />
+          <Route path="/admin/settings" element={<AdminSettingsPage />} />
 
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/user" replace />} />

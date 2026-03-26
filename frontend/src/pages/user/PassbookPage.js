@@ -25,6 +25,8 @@ export default function PassbookPage() {
         return <Receipt className="w-5 h-5 text-[#10B981]" />;
       case 'referral_commission':
         return <Gift className="w-5 h-5 text-[#10B981]" />;
+      case 'scratch_bonus':
+        return <Gift className="w-5 h-5 text-[#F59E0B]" />;
       case 'withdrawal':
         return <DollarSign className="w-5 h-5 text-[#EF4444]" />;
       default:
@@ -38,6 +40,8 @@ export default function PassbookPage() {
         return 'Purchase (3%)';
       case 'referral_commission':
         return 'Referral (2%)';
+      case 'scratch_bonus':
+        return 'Scratch Bonus';
       case 'withdrawal':
         return 'Withdrawal';
       default:
@@ -126,6 +130,9 @@ export default function PassbookPage() {
               </SelectItem>
               <SelectItem value="referral_commission" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
                 Referral Commissions
+              </SelectItem>
+              <SelectItem value="scratch_bonus" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
+                Scratch Bonuses
               </SelectItem>
               <SelectItem value="withdrawal" className="hover:bg-[#10B981] hover:text-black cursor-pointer">
                 Withdrawals

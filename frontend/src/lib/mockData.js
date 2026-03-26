@@ -345,6 +345,18 @@ export const mockPassbookTransactions = [
     balance_after: 12450.50
   },
   {
+    id: 'txn-001b',
+    date: '2024-01-20T14:35:00Z',
+    type: 'scratch_bonus',
+    description: 'Scratch Card Bonus',
+    bill_no: 'MG-2024-001234',
+    scratch_reward: 500,
+    amount_purchased: 0,
+    points_credited: 500,
+    points_debited: 0,
+    balance_after: 12950.50
+  },
+  {
     id: 'txn-002',
     date: '2024-01-20T10:15:00Z',
     type: 'referral_commission',

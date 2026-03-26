@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Trophy, User, Receipt, DollarSign, Store, Gift, LogOut, BookOpen } from 'lucide-react';
+import { Home, Users, Trophy, User, Receipt, DollarSign, Store, Gift, LogOut, BookOpen, UserCog, Settings as SettingsIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export const DesktopSidebar = ({ userType = 'user' }) => {
@@ -16,9 +16,12 @@ export const DesktopSidebar = ({ userType = 'user' }) => {
 
   const adminNavItems = [
     { path: '/admin', icon: Receipt, label: 'Approvals', testid: 'sidebar-nav-approvals' },
+    { path: '/admin/users', icon: Users, label: 'Users', testid: 'sidebar-nav-users' },
+    { path: '/admin/storekeepers', icon: UserCog, label: 'Storekeepers', testid: 'sidebar-nav-storekeepers' },
     { path: '/admin/payouts', icon: DollarSign, label: 'Payouts', testid: 'sidebar-nav-payouts' },
     { path: '/admin/stores', icon: Store, label: 'Stores', testid: 'sidebar-nav-stores' },
-    { path: '/admin/gifts', icon: Gift, label: 'Gifts', testid: 'sidebar-nav-gifts' }
+    { path: '/admin/gifts', icon: Gift, label: 'Gifts', testid: 'sidebar-nav-gifts' },
+    { path: '/admin/settings', icon: SettingsIcon, label: 'Settings', testid: 'sidebar-nav-settings' }
   ];
 
   const navItems = userType === 'admin' ? adminNavItems : userNavItems;
