@@ -1,50 +1,47 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import '@/App.css';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// User Portal Pages
+import HomePage from '@/pages/user/HomePage';
+import ReferralsPage from '@/pages/user/ReferralsPage';
+import LeaderboardPage from '@/pages/user/LeaderboardPage';
+import ProfilePage from '@/pages/user/ProfilePage';
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Storekeeper Portal Pages
+import StorekeeperPage from '@/pages/storekeeper/StorekeeperPage';
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+// Admin Portal Pages
+import AdminApprovalsPage from '@/pages/admin/AdminApprovalsPage';
+import AdminPayoutsPage from '@/pages/admin/AdminPayoutsPage';
+import AdminStoresPage from '@/pages/admin/AdminStoresPage';
+import AdminGiftsPage from '@/pages/admin/AdminGiftsPage';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          {/* Default redirect */}
+          <Route path="/" element={<Navigate to="/user" replace />} />
+          
+          {/* User Portal Routes */}
+          <Route path="/user" element={<HomePage />} />
+          <Route path="/user/referrals" element={<ReferralsPage />} />
+          <Route path="/user/leaderboard" element={<LeaderboardPage />} />
+          <Route path="/user/profile" element={<ProfilePage />} />
+
+          {/* Storekeeper Portal Routes */}
+          <Route path="/storekeeper" element={<StorekeeperPage />} />
+
+          {/* Admin Portal Routes */}
+          <Route path="/admin" element={<AdminApprovalsPage />} />
+          <Route path="/admin/payouts" element={<AdminPayoutsPage />} />
+          <Route path="/admin/stores" element={<AdminStoresPage />} />
+          <Route path="/admin/gifts" element={<AdminGiftsPage />} />
+
+          {/* Catch all */}
+          <Route path="*" element={<Navigate to="/user" replace />} />
         </Routes>
       </BrowserRouter>
     </div>

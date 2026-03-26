@@ -1,0 +1,96 @@
+import React from 'react';
+import { QrCode, UserPlus, MapPin } from 'lucide-react';
+import { UserLayout } from '@/components/Layout';
+import { mockUser } from '@/lib/mockData';
+import { formatCurrency } from '@/lib/utils';
+
+export default function HomePage() {
+  return (
+    <UserLayout>
+      <div className="max-w-5xl mx-auto p-6 md:p-12 space-y-12 fade-in">
+        {/* Balance Section */}
+        <section data-testid="balance-section" className="space-y-4">
+          <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
+            Available Balance
+          </p>
+          <h1 
+            data-testid="user-balance" 
+            className="text-6xl sm:text-7xl lg:text-8xl font-mono font-black text-white tracking-tighter"
+          >
+            {formatCurrency(mockUser.balance)}
+          </h1>
+          <button
+            data-testid="withdraw-balance-btn"
+            className="mt-6 bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-8 py-4 text-sm"
+          >
+            Withdraw to UPI
+          </button>
+        </section>
+
+        {/* Quick Actions */}
+        <section data-testid="quick-actions-section" className="space-y-6">
+          <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
+            Quick Actions
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Scan to Pay */}
+            <button
+              data-testid="scan-to-pay-btn"
+              className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
+            >
+              <QrCode className="w-8 h-8 mb-4 text-[#10B981]" />
+              <h3 className="text-lg font-bold text-white mb-2">Scan to Pay</h3>
+              <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                Quick scan at checkout
+              </p>
+            </button>
+
+            {/* Invite Colleague */}
+            <button
+              data-testid="invite-colleague-btn"
+              className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
+            >
+              <UserPlus className="w-8 h-8 mb-4 text-[#10B981]" />
+              <h3 className="text-lg font-bold text-white mb-2">Invite Colleague</h3>
+              <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                Earn 2% on their purchases
+              </p>
+            </button>
+
+            {/* Find Store */}
+            <button
+              data-testid="find-store-btn"
+              className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
+            >
+              <MapPin className="w-8 h-8 mb-4 text-[#10B981]" />
+              <h3 className="text-lg font-bold text-white mb-2">Find Store</h3>
+              <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                Locate nearest partner store
+              </p>
+            </button>
+          </div>
+        </section>
+
+        {/* Stats Grid */}
+        <section data-testid="stats-section" className="grid grid-cols-2 gap-6">
+          <div className="bg-transparent border border-[#222222] rounded-lg p-6">
+            <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
+              Monthly Volume
+            </p>
+            <p className="text-3xl font-mono font-black text-white">
+              {formatCurrency(mockUser.monthly_volume)}
+            </p>
+          </div>
+          <div className="bg-transparent border border-[#222222] rounded-lg p-6">
+            <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
+              Rank This Month
+            </p>
+            <p className="text-3xl font-mono font-black text-[#10B981]">
+              #3
+            </p>
+          </div>
+        </section>
+      </div>
+    </UserLayout>
+  );
+}
