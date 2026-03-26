@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Trophy, User } from 'lucide-react';
+import { Home, Users, Trophy, User, Receipt } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export const MobileNav = ({ userType = 'user' }) => {
@@ -8,6 +8,7 @@ export const MobileNav = ({ userType = 'user' }) => {
 
   const userNavItems = [
     { path: '/user', icon: Home, label: 'Home', testid: 'mobile-nav-home' },
+    { path: '/user/passbook', icon: Receipt, label: 'Passbook', testid: 'mobile-nav-passbook' },
     { path: '/user/referrals', icon: Users, label: 'Referrals', testid: 'mobile-nav-referrals' },
     { path: '/user/leaderboard', icon: Trophy, label: 'Leaderboard', testid: 'mobile-nav-leaderboard' },
     { path: '/user/profile', icon: User, label: 'Profile', testid: 'mobile-nav-profile' }
@@ -20,7 +21,7 @@ export const MobileNav = ({ userType = 'user' }) => {
       className="fixed bottom-0 left-0 right-0 z-50 bg-[#000000] border-t border-[#222222] md:hidden"
       data-testid="mobile-bottom-nav"
     >
-      <div className="grid grid-cols-4 h-16">
+      <div className="grid grid-cols-5 h-16">
         {userNavItems.map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path;

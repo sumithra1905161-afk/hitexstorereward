@@ -83,7 +83,7 @@ export const mockLeaderboard = [
     id: 'user-9',
     full_name: 'Rahul Mehta',
     mobile_no: '+919876543219',
-    avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaHQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
+    avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 320000.00,
     rank: 6
   },
@@ -268,4 +268,154 @@ export const mockMillNames = [
   'Surat Fabric Industries',
   'Jaipur Textiles Ltd',
   'Tirupur Garment Mills'
+];
+
+export const mockPassbookTransactions = [
+  {
+    id: 'txn-001',
+    date: '2024-01-20T14:30:00Z',
+    type: 'purchase',
+    description: 'Purchase at MG Road Store',
+    bill_no: 'MG-2024-001234',
+    mill_name: 'Delhi Textile Mills',
+    amount_purchased: 50000,
+    points_credited: 1500,
+    points_debited: 0,
+    balance_after: 12450.50
+  },
+  {
+    id: 'txn-002',
+    date: '2024-01-20T10:15:00Z',
+    type: 'referral_commission',
+    description: 'Commission from Amit Singh purchase',
+    bill_no: 'BR-2024-000987',
+    mill_name: 'Mumbai Fabrics Ltd',
+    referee_name: 'Amit Singh',
+    amount_purchased: 35000,
+    points_credited: 700,
+    points_debited: 0,
+    balance_after: 10950.50
+  },
+  {
+    id: 'txn-003',
+    date: '2024-01-19T16:45:00Z',
+    type: 'withdrawal',
+    description: 'UPI Withdrawal to rajesh@paytm',
+    bill_no: 'WD-2024-000156',
+    amount_purchased: 0,
+    points_credited: 0,
+    points_debited: 5000,
+    balance_after: 10250.50
+  },
+  {
+    id: 'txn-004',
+    date: '2024-01-18T11:20:00Z',
+    type: 'purchase',
+    description: 'Purchase at Brigade Road Store',
+    bill_no: 'BR-2024-000945',
+    mill_name: 'Chennai Cotton Works',
+    amount_purchased: 42000,
+    points_credited: 1260,
+    points_debited: 0,
+    balance_after: 15250.50
+  },
+  {
+    id: 'txn-005',
+    date: '2024-01-18T09:30:00Z',
+    type: 'referral_commission',
+    description: 'Commission from Priya Sharma purchase',
+    bill_no: 'JN-2024-000823',
+    mill_name: 'Kolkata Textiles',
+    referee_name: 'Priya Sharma',
+    amount_purchased: 28000,
+    points_credited: 560,
+    points_debited: 0,
+    balance_after: 13990.50
+  },
+  {
+    id: 'txn-006',
+    date: '2024-01-17T15:10:00Z',
+    type: 'purchase',
+    description: 'Purchase at Jayanagar Store',
+    bill_no: 'JN-2024-000801',
+    mill_name: 'Ahmedabad Spinning Mills',
+    amount_purchased: 38000,
+    points_credited: 1140,
+    points_debited: 0,
+    balance_after: 13430.50
+  },
+  {
+    id: 'txn-007',
+    date: '2024-01-16T13:45:00Z',
+    type: 'referral_commission',
+    description: 'Commission from Vikram Patel purchase',
+    bill_no: 'WF-2024-000678',
+    mill_name: 'Coimbatore Textiles',
+    referee_name: 'Vikram Patel',
+    amount_purchased: 31500,
+    points_credited: 630,
+    points_debited: 0,
+    balance_after: 12290.50
+  },
+  {
+    id: 'txn-008',
+    date: '2024-01-15T10:00:00Z',
+    type: 'withdrawal',
+    description: 'UPI Withdrawal to rajesh@paytm',
+    bill_no: 'WD-2024-000142',
+    amount_purchased: 0,
+    points_credited: 0,
+    points_debited: 3000,
+    balance_after: 11660.50
+  },
+  {
+    id: 'txn-009',
+    date: '2024-01-14T14:20:00Z',
+    type: 'purchase',
+    description: 'Purchase at MG Road Store',
+    bill_no: 'MG-2024-001156',
+    mill_name: 'Ludhiana Cotton Mills',
+    amount_purchased: 45000,
+    points_credited: 1350,
+    points_debited: 0,
+    balance_after: 14660.50
+  },
+  {
+    id: 'txn-010',
+    date: '2024-01-13T11:30:00Z',
+    type: 'referral_commission',
+    description: 'Commission from Amit Singh purchase',
+    bill_no: 'BR-2024-000890',
+    mill_name: 'Surat Fabric Industries',
+    referee_name: 'Amit Singh',
+    amount_purchased: 39000,
+    points_credited: 780,
+    points_debited: 0,
+    balance_after: 13310.50
+  },
+  {
+    id: 'txn-011',
+    date: '2024-01-12T16:15:00Z',
+    type: 'purchase',
+    description: 'Purchase at Whitefield Store',
+    bill_no: 'WF-2024-000623',
+    mill_name: 'Jaipur Textiles Ltd',
+    amount_purchased: 52000,
+    points_credited: 1560,
+    points_debited: 0,
+    balance_after: 12530.50
+  },
+  {
+    id: 'txn-012',
+    date: '2024-01-11T09:45:00Z',
+    type: 'referral_commission',
+    description: 'Commission from Priya Sharma purchase',
+    bill_no: 'JN-2024-000756',
+    mill_name: 'Tirupur Garment Mills',
+    referee_name: 'Priya Sharma',
+    amount_purchased: 33000,
+    points_credited: 660,
+    points_debited: 0,
+    balance_after: 10970.50
+  }
 ];

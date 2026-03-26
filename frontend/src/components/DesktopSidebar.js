@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Trophy, User, Receipt, DollarSign, Store, Gift, LogOut } from 'lucide-react';
+import { Home, Users, Trophy, User, Receipt, DollarSign, Store, Gift, LogOut, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export const DesktopSidebar = ({ userType = 'user' }) => {
@@ -8,6 +8,7 @@ export const DesktopSidebar = ({ userType = 'user' }) => {
 
   const userNavItems = [
     { path: '/user', icon: Home, label: 'Home', testid: 'sidebar-nav-home' },
+    { path: '/user/passbook', icon: BookOpen, label: 'Passbook', testid: 'sidebar-nav-passbook' },
     { path: '/user/referrals', icon: Users, label: 'Referrals', testid: 'sidebar-nav-referrals' },
     { path: '/user/leaderboard', icon: Trophy, label: 'Leaderboard', testid: 'sidebar-nav-leaderboard' },
     { path: '/user/profile', icon: User, label: 'Profile', testid: 'sidebar-nav-profile' }

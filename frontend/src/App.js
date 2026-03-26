@@ -4,6 +4,7 @@ import '@/App.css';
 
 // User Portal Pages
 import HomePage from '@/pages/user/HomePage';
+import PassbookPage from '@/pages/user/PassbookPage';
 import ReferralsPage from '@/pages/user/ReferralsPage';
 import LeaderboardPage from '@/pages/user/LeaderboardPage';
 import ProfilePage from '@/pages/user/ProfilePage';
@@ -27,6 +28,7 @@ function App() {
           
           {/* User Portal Routes */}
           <Route path="/user" element={<HomePage />} />
+          <Route path="/user/passbook" element={<PassbookPage />} />
           <Route path="/user/referrals" element={<ReferralsPage />} />
           <Route path="/user/leaderboard" element={<LeaderboardPage />} />
           <Route path="/user/profile" element={<ProfilePage />} />
