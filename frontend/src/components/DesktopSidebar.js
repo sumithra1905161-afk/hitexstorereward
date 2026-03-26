@@ -31,7 +31,7 @@ export const DesktopSidebar = ({ userType = 'user' }) => {
       {/* Logo */}
       <div className="h-16 flex items-center px-6 border-b border-[#222222]">
         <h1 className="text-xl font-black tracking-tight text-white">
-          Elite <span className="text-[#10B981]">Spare</span>
+          Hitex <span className="text-[#10B981]">Spares</span>
         </h1>
       </div>
 

@@ -39,7 +39,7 @@ export function generateReferralLink(mobileNo) {
 }
 
 export function shareOnWhatsApp(referralLink, userName) {
-  const message = `Hey! Join Elite Spare Rewards and start earning on your textile purchases. Use my referral link: ${referralLink}\n\n- ${userName}`;
+  const message = `Hey! Join Hitex Spares Rewards and start earning on your textile purchases. Use my referral link: ${referralLink}\n\n- ${userName}`;
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
 }

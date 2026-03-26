@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
-import { Upload, X } from 'lucide-react';
+import { Upload, X, Pencil } from 'lucide-react';
 import { AdminLayout } from '@/components/Layout';
 import { mockPrizes } from '@/lib/mockData';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 export default function AdminGiftsPage() {
   const [prizes, setPrizes] = useState(mockPrizes);
+  const [editingPrize, setEditingPrize] = useState(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editForm, setEditForm] = useState({ title: '', description: '' });
 
   const handleImageUpload = (rank, event) => {
     const file = event.target.files?.[0];
@@ -21,6 +32,30 @@ export default function AdminGiftsPage() {
         );
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEdit = (prize) => {
+    setEditingPrize(prize);
+    setEditForm({ title: prize.title, description: prize.description });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleSaveEdit = () => {
+    setPrizes(prev =>
+      prev.map(prize =>
+        prize.id === editingPrize.id
+          ? { ...prize, ...editForm }
+          : prize
+      )
+    );
+    setIsEditDialogOpen(false);
+    setEditingPrize(null);
+  };
+
+  const handleDelete = (prizeId) => {
+    if (window.confirm('Are you sure you want to delete this prize?')) {
+      setPrizes(prev => prev.filter(p => p.id !== prizeId));
     }
   };
 
@@ -83,9 +118,28 @@ export default function AdminGiftsPage() {
                       #{prize.rank}
                     </span>
                   </div>
-                  <h3 className="text-white font-bold text-lg">
+                  <h3 className="text-white font-bold text-lg mb-4">
                     {prize.title}
                   </h3>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => handleEdit(prize)}
+                      data-testid={`edit-prize-${prize.rank}`}
+                      className="flex-1 bg-transparent border border-[#222222] text-white hover:border-[#10B981] hover:text-[#10B981]"
+                    >
+                      <Pencil className="w-4 h-4 mr-2" />
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(prize.id)}
+                      data-testid={`delete-prize-${prize.rank}`}
+                      className="bg-[#EF4444] text-white hover:bg-[#DC2626]"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -112,6 +166,48 @@ export default function AdminGiftsPage() {
             </li>
           </ul>
         </section>
+
+        {/* Edit Dialog */}
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="bg-[#09090B] border border-[#222222] text-white">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-white">Edit Prize Details</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 mt-4">
+              <div className="space-y-2">
+                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
+                  Prize Title
+                </Label>
+                <Input
+                  type="text"
+                  value={editForm.title}
+                  onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                  data-testid="edit-prize-title-input"
+                  className="bg-[#09090B] border border-[#222222] text-white"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
+                  Description
+                </Label>
+                <Input
+                  type="text"
+                  value={editForm.description}
+                  onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                  data-testid="edit-prize-description-input"
+                  className="bg-[#09090B] border border-[#222222] text-white"
+                />
+              </div>
+              <Button
+                onClick={handleSaveEdit}
+                data-testid="save-prize-edit-btn"
+                className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide"
+              >
+                Save Changes
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </AdminLayout>
   );

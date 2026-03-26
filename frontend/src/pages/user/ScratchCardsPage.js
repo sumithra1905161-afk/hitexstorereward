@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
 import { Gift, Sparkles, Trophy } from 'lucide-react';
 import { UserLayout } from '@/components/Layout';
+import { ScratchCardModal } from '@/components/ScratchCardModal';
 import { mockScratchCards } from '@/lib/mockData';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
 export default function ScratchCardsPage() {
   const [cards, setCards] = useState(mockScratchCards);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleScratch = (cardId) => {
-    setCards(prev =>
-      prev.map(card =>
-        card.id === cardId
-          ? { ...card, scratched: true, scratched_date: new Date().toISOString() }
-          : card
-      )
-    );
+  const handleScratchClick = (card) => {
+    setSelectedCard(card);
+    setIsModalOpen(true);
+  };
+
+  const handleScratchComplete = () => {
+    if (selectedCard) {
+      setCards(prev =>
+        prev.map(card =>
+          card.id === selectedCard.id
+            ? { ...card, scratched: true, scratched_date: new Date().toISOString() }
+            : card
+        )
+      );
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setSelectedCard(null);
+      }, 2000);
+    }
   };
 
   const unscratched = cards.filter(c => !c.scratched);
@@ -119,7 +133,7 @@ export default function ScratchCardsPage() {
 
                       {/* Scratch Button */}
                       <button
-                        onClick={() => handleScratch(card.id)}
+                        onClick={() => handleScratchClick(card)}
                         data-testid={`scratch-btn-${card.id}`}
                         className="w-full bg-[#10B981] text-black hover:bg-[#059669] transition-colors rounded-md px-6 py-3 font-bold uppercase tracking-wide text-sm flex items-center justify-center gap-2 mt-4"
                       >
@@ -198,6 +212,14 @@ export default function ScratchCardsPage() {
             ))}
           </div>
         </section>
+
+        {/* Scratch Card Modal */}
+        <ScratchCardModal
+          card={selectedCard}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onComplete={handleScratchComplete}
+        />
       </div>
     </UserLayout>
   );

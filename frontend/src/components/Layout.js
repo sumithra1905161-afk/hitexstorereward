@@ -30,7 +30,7 @@ export const StorekeeperLayout = ({ children }) => {
     <div className="min-h-screen bg-[#000000]">
       <header className="border-b border-[#222222] h-16 flex items-center px-6">
         <h1 className="text-xl font-black tracking-tight text-white">
-          Storekeeper <span className="text-[#10B981]">Portal</span>
+          Storekeeper <span className="text-[#10B981]">Portal</span> - Hitex Spares
         </h1>
       </header>
       <main className="min-h-screen">
