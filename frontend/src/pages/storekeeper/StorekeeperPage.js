@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Check, MapPin } from 'lucide-react';
+import { Search, Check, MapPin, QrCode } from 'lucide-react';
 import { StorekeeperLayout } from '@/components/Layout';
 import { mockUser, mockStores, mockMillNames } from '@/lib/mockData';
 import { formatMobileNumber } from '@/lib/utils';
@@ -13,6 +13,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 export default function StorekeeperPage() {
   const [searchMobile, setSearchMobile] = useState('');
@@ -20,13 +26,19 @@ export default function StorekeeperPage() {
   const [billAmount, setBillAmount] = useState('');
   const [selectedMill, setSelectedMill] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isQrOpen, setIsQrOpen] = useState(false);
   const currentStore = mockStores[0];
 
   const handleSearch = () => {
-    // Mock verification - in real app, this would call API
     if (searchMobile.length >= 10) {
       setVerifiedUser(mockUser);
     }
+  };
+
+  const handleQrScan = (scannedMobile) => {
+    setSearchMobile(scannedMobile);
+    setVerifiedUser(mockUser);
+    setIsQrOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -88,6 +100,14 @@ export default function StorekeeperPage() {
             >
               <Search className="w-5 h-5 mr-2" />
               Search
+            </Button>
+            <Button
+              onClick={() => setIsQrOpen(true)}
+              data-testid="scan-qr-btn"
+              className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black px-8 font-bold uppercase tracking-wide text-sm"
+            >
+              <QrCode className="w-5 h-5 mr-2" />
+              Scan QR
             </Button>
           </div>
         </section>
@@ -176,6 +196,32 @@ export default function StorekeeperPage() {
           </section>
         )}
       </div>
+
+      {/* QR Scanner Modal */}
+      <Dialog open={isQrOpen} onOpenChange={setIsQrOpen}>
+        <DialogContent className="bg-[#09090B] border border-[#222222] text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-white text-center">Scan Customer QR</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-6 mt-4">
+            <div className="bg-[#222222] rounded-lg p-8 flex items-center justify-center min-h-[300px]">
+              <div className="text-center space-y-4">
+                <QrCode className="w-16 h-16 text-[#10B981] mx-auto" />
+                <p className="text-white font-bold">QR Scanner</p>
+                <p className="text-[#A1A1AA] text-sm">Position QR code within frame</p>
+                <p className="text-[#71717A] text-xs">(Demo: Auto-scans mock user)</p>
+              </div>
+            </div>
+            <Button
+              onClick={() => handleQrScan('+919876543210')}
+              data-testid="mock-scan-btn"
+              className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide"
+            >
+              Simulate Scan (Demo)
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </StorekeeperLayout>
   );
 }

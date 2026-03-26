@@ -93,7 +93,7 @@ export default function LeaderboardPage() {
                       {user.full_name}
                     </h3>
                     <p className="text-[#A1A1AA] text-sm">
-                      {formatMobileNumber(user.mobile_no)}
+                      {user.location}
                     </p>
                   </div>
                   <div className="text-right">

@@ -43,6 +43,7 @@ export const mockLeaderboard = [
     id: 'user-5',
     full_name: 'Suresh Reddy',
     mobile_no: '+919876543215',
+    location: 'Hyderabad',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 550000.00,
     rank: 1
@@ -51,6 +52,7 @@ export const mockLeaderboard = [
     id: 'user-6',
     full_name: 'Deepak Verma',
     mobile_no: '+919876543216',
+    location: 'Mumbai',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 485000.00,
     rank: 2
@@ -59,6 +61,7 @@ export const mockLeaderboard = [
     id: 'user-1',
     full_name: 'Rajesh Kumar',
     mobile_no: '+919876543210',
+    location: 'Delhi',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 415016.67,
     rank: 3
@@ -67,6 +70,7 @@ export const mockLeaderboard = [
     id: 'user-7',
     full_name: 'Anil Gupta',
     mobile_no: '+919876543217',
+    location: 'Bangalore',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 380000.00,
     rank: 4
@@ -75,6 +79,7 @@ export const mockLeaderboard = [
     id: 'user-8',
     full_name: 'Sanjay Rao',
     mobile_no: '+919876543218',
+    location: 'Chennai',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 350000.00,
     rank: 5
@@ -83,6 +88,7 @@ export const mockLeaderboard = [
     id: 'user-9',
     full_name: 'Rahul Mehta',
     mobile_no: '+919876543219',
+    location: 'Pune',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 320000.00,
     rank: 6
@@ -91,6 +97,7 @@ export const mockLeaderboard = [
     id: 'user-10',
     full_name: 'Karan Joshi',
     mobile_no: '+919876543220',
+    location: 'Ahmedabad',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 290000.00,
     rank: 7
@@ -99,6 +106,7 @@ export const mockLeaderboard = [
     id: 'user-11',
     full_name: 'Manish Kumar',
     mobile_no: '+919876543221',
+    location: 'Kolkata',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 265000.00,
     rank: 8
@@ -107,6 +115,7 @@ export const mockLeaderboard = [
     id: 'user-12',
     full_name: 'Ravi Desai',
     mobile_no: '+919876543222',
+    location: 'Surat',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 240000.00,
     rank: 9
@@ -115,6 +124,7 @@ export const mockLeaderboard = [
     id: 'user-13',
     full_name: 'Arjun Shah',
     mobile_no: '+919876543223',
+    location: 'Jaipur',
     avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
     monthly_volume: 215000.00,
     rank: 10

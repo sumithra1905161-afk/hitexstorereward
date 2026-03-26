@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { User, Phone, Wallet, TrendingUp, Pencil, Plus, X } from 'lucide-react';
+import { User, Phone, Wallet, TrendingUp, Pencil, Plus, X, QrCode as QrCodeIcon } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser } from '@/lib/mockData';
 import { formatCurrency, formatMobileNumber } from '@/lib/utils';
@@ -25,6 +26,7 @@ export default function ProfilePage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isUpiOpen, setIsUpiOpen] = useState(false);
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
+  const [isQrOpen, setIsQrOpen] = useState(false);
   
   const [editForm, setEditForm] = useState({
     full_name: user.full_name,
@@ -95,73 +97,55 @@ export default function ProfilePage() {
               {formatMobileNumber(user.mobile_no)}
             </p>
           </div>
+          <Button
+            onClick={() => setIsQrOpen(true)}
+            data-testid="show-qr-btn"
+            className="bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide flex items-center gap-2"
+          >
+            <QrCodeIcon className="w-5 h-5" />
+            Show QR
+          </Button>
         </section>
 
-        {/* Profile Details */}
+        {/* Profile Details - rest remains same */}
         <section data-testid="profile-details-section" className="space-y-4">
           <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
             Account Details
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* UPI ID */}
             <div className="bg-transparent border border-[#222222] rounded-lg p-6">
               <div className="flex items-center gap-3 mb-3">
                 <Wallet className="w-5 h-5 text-[#10B981]" />
-                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  UPI ID
-                </p>
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">UPI ID</p>
               </div>
-              <p className="text-white font-mono text-lg">
-                {user.upi_id}
-              </p>
+              <p className="text-white font-mono text-lg">{user.upi_id}</p>
             </div>
-
-            {/* Phone */}
             <div className="bg-transparent border border-[#222222] rounded-lg p-6">
               <div className="flex items-center gap-3 mb-3">
                 <Phone className="w-5 h-5 text-[#10B981]" />
-                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Mobile Number
-                </p>
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Mobile Number</p>
               </div>
-              <p className="text-white font-mono text-lg">
-                {formatMobileNumber(user.mobile_no)}
-              </p>
+              <p className="text-white font-mono text-lg">{formatMobileNumber(user.mobile_no)}</p>
             </div>
-
-            {/* Balance */}
             <div className="bg-transparent border border-[#222222] rounded-lg p-6">
               <div className="flex items-center gap-3 mb-3">
                 <Wallet className="w-5 h-5 text-[#10B981]" />
-                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Available Balance
-                </p>
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Available Balance</p>
               </div>
-              <p className="text-[#10B981] font-mono text-2xl font-black">
-                {formatCurrency(user.balance)}
-              </p>
+              <p className="text-[#10B981] font-mono text-2xl font-black">{formatCurrency(user.balance)}</p>
             </div>
-
-            {/* Monthly Volume */}
             <div className="bg-transparent border border-[#222222] rounded-lg p-6">
               <div className="flex items-center gap-3 mb-3">
                 <TrendingUp className="w-5 h-5 text-[#10B981]" />
-                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Monthly Volume
-                </p>
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Monthly Volume</p>
               </div>
-              <p className="text-white font-mono text-2xl font-black">
-                {formatCurrency(user.monthly_volume)}
-              </p>
+              <p className="text-white font-mono text-2xl font-black">{formatCurrency(user.monthly_volume)}</p>
             </div>
           </div>
         </section>
 
-        {/* Mills Section */}
         <section className="space-y-4">
-          <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-            My Mills
-          </p>
+          <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">My Mills</p>
           <div className="space-y-3">
             {user.mills?.map((mill, index) => (
               <div key={index} className="bg-transparent border border-[#222222] rounded-lg p-4">
@@ -172,210 +156,82 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* Actions */}
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Button
-            onClick={() => {
-              setEditForm({
-                full_name: user.full_name,
-                mobile_no: user.mobile_no,
-                mills: user.mills
-              });
-              setIsEditOpen(true);
-            }}
-            data-testid="edit-profile-btn"
-            className="flex-1 bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-4"
-          >
-            <Pencil className="w-4 h-4 mr-2" />
-            Edit Profile
+          <Button onClick={() => { setEditForm({ full_name: user.full_name, mobile_no: user.mobile_no, mills: user.mills }); setIsEditOpen(true); }} data-testid="edit-profile-btn" className="bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-4">
+            <Pencil className="w-4 h-4 mr-2" />Edit Profile
           </Button>
-          <Button
-            onClick={() => {
-              setUpiForm({ upi_id: user.upi_id });
-              setIsUpiOpen(true);
-            }}
-            data-testid="update-upi-btn"
-            className="flex-1 bg-transparent border border-[#222222] text-white hover:border-[#10B981] hover:text-[#10B981] font-bold uppercase tracking-wide py-4"
-          >
-            Update UPI
-          </Button>
-          <Button
-            onClick={() => {
-              setWithdrawForm({ amount: '', upi_id: user.upi_id });
-              setIsWithdrawOpen(true);
-            }}
-            data-testid="withdraw-btn"
-            className="flex-1 bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide py-4"
-          >
-            Withdraw
-          </Button>
+          <Button onClick={() => { setUpiForm({ upi_id: user.upi_id }); setIsUpiOpen(true); }} data-testid="update-upi-btn" className="bg-transparent border border-[#222222] text-white hover:border-[#10B981] hover:text-[#10B981] font-bold uppercase tracking-wide py-4">Update UPI</Button>
+          <Button onClick={() => { setWithdrawForm({ amount: '', upi_id: user.upi_id }); setIsWithdrawOpen(true); }} data-testid="withdraw-btn" className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide py-4">Withdraw</Button>
         </section>
 
-        {/* Edit Profile Modal */}
+        {/* QR Code Modal */}
+        <Dialog open={isQrOpen} onOpenChange={setIsQrOpen}>
+          <DialogContent className="bg-[#09090B] border border-[#222222] text-white max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-white text-center">My QR Code</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6 mt-4">
+              <div className="bg-white p-6 rounded-lg flex items-center justify-center">
+                <QRCodeSVG
+                  value={user.mobile_no}
+                  size={256}
+                  level="H"
+                  includeMargin={true}
+                  data-testid="user-qr-code"
+                />
+              </div>
+              <div className="text-center space-y-2">
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Scan this QR at store</p>
+                <p className="text-white font-mono text-lg">{user.full_name}</p>
+                <p className="text-[#10B981] font-mono">{formatMobileNumber(user.mobile_no)}</p>
+              </div>
+              <p className="text-[#71717A] text-xs text-center leading-relaxed">
+                Show this QR code to the storekeeper for quick purchase entry
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit/UPI/Withdraw modals remain same - keeping existing code */}
         <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
           <DialogContent className="bg-[#09090B] border border-[#222222] text-white max-w-2xl max-h-[80vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white">Edit Profile</DialogTitle>
-            </DialogHeader>
+            <DialogHeader><DialogTitle className="text-2xl font-bold text-white">Edit Profile</DialogTitle></DialogHeader>
             <div className="space-y-4 mt-4">
-              <div className="space-y-2">
-                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Full Name
-                </Label>
-                <Input
-                  type="text"
-                  value={editForm.full_name}
-                  onChange={(e) => setEditForm({ ...editForm, full_name: e.target.value })}
-                  data-testid="edit-name-input"
-                  className="bg-[#09090B] border border-[#222222] text-white"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Mobile Number
-                </Label>
-                <Input
-                  type="tel"
-                  value={editForm.mobile_no}
-                  onChange={(e) => setEditForm({ ...editForm, mobile_no: e.target.value })}
-                  data-testid="edit-mobile-input"
-                  className="bg-[#09090B] border border-[#222222] text-white"
-                />
-              </div>
-
-              <div className="space-y-3">
-                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Mill Details
-                </Label>
+              <div className="space-y-2"><Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Full Name</Label><Input type="text" value={editForm.full_name} onChange={(e) => setEditForm({ ...editForm, full_name: e.target.value })} data-testid="edit-name-input" className="bg-[#09090B] border border-[#222222] text-white" /></div>
+              <div className="space-y-2"><Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Mobile Number</Label><Input type="tel" value={editForm.mobile_no} onChange={(e) => setEditForm({ ...editForm, mobile_no: e.target.value })} data-testid="edit-mobile-input" className="bg-[#09090B] border border-[#222222] text-white" /></div>
+              <div className="space-y-3"><Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Mill Details</Label>
                 {editForm.mills?.map((mill, index) => (
                   <div key={index} className="bg-[#000000] border border-[#222222] rounded-lg p-4 space-y-3">
-                    <Input
-                      type="text"
-                      placeholder="Mill Name"
-                      value={mill.name}
-                      onChange={(e) => updateMill(index, 'name', e.target.value)}
-                      data-testid={`edit-mill-name-${index}`}
-                      className="bg-[#09090B] border border-[#222222] text-white"
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Mill Location"
-                      value={mill.location}
-                      onChange={(e) => updateMill(index, 'location', e.target.value)}
-                      data-testid={`edit-mill-location-${index}`}
-                      className="bg-[#09090B] border border-[#222222] text-white"
-                    />
-                    {editForm.mills.length > 1 && (
-                      <Button
-                        onClick={() => removeMill(index)}
-                        data-testid={`remove-mill-edit-${index}`}
-                        className="w-full bg-[#EF4444] text-white hover:bg-[#DC2626]"
-                      >
-                        <X className="w-4 h-4 mr-2" />
-                        Remove Mill
-                      </Button>
-                    )}
+                    <Input type="text" placeholder="Mill Name" value={mill.name} onChange={(e) => updateMill(index, 'name', e.target.value)} data-testid={`edit-mill-name-${index}`} className="bg-[#09090B] border border-[#222222] text-white" />
+                    <Input type="text" placeholder="Mill Location" value={mill.location} onChange={(e) => updateMill(index, 'location', e.target.value)} data-testid={`edit-mill-location-${index}`} className="bg-[#09090B] border border-[#222222] text-white" />
+                    {editForm.mills.length > 1 && (<Button onClick={() => removeMill(index)} data-testid={`remove-mill-edit-${index}`} className="w-full bg-[#EF4444] text-white hover:bg-[#DC2626]"><X className="w-4 h-4 mr-2" />Remove Mill</Button>)}
                   </div>
                 ))}
-                <Button
-                  onClick={addMill}
-                  data-testid="add-mill-edit-btn"
-                  className="w-full bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Another Mill
-                </Button>
+                <Button onClick={addMill} data-testid="add-mill-edit-btn" className="w-full bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black"><Plus className="w-4 h-4 mr-2" />Add Another Mill</Button>
               </div>
-
-              <Button
-                onClick={handleEditSave}
-                data-testid="save-profile-btn"
-                className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide"
-              >
-                Save Changes
-              </Button>
+              <Button onClick={handleEditSave} data-testid="save-profile-btn" className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide">Save Changes</Button>
             </div>
           </DialogContent>
         </Dialog>
 
-        {/* Update UPI Modal */}
         <Dialog open={isUpiOpen} onOpenChange={setIsUpiOpen}>
           <DialogContent className="bg-[#09090B] border border-[#222222] text-white max-w-md">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white">Update UPI ID</DialogTitle>
-            </DialogHeader>
+            <DialogHeader><DialogTitle className="text-2xl font-bold text-white">Update UPI ID</DialogTitle></DialogHeader>
             <div className="space-y-4 mt-4">
-              <div className="space-y-2">
-                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  UPI ID
-                </Label>
-                <Input
-                  type="text"
-                  placeholder="yourname@paytm"
-                  value={upiForm.upi_id}
-                  onChange={(e) => setUpiForm({ upi_id: e.target.value })}
-                  data-testid="upi-input"
-                  className="bg-[#09090B] border border-[#222222] text-white font-mono"
-                />
-              </div>
-              <Button
-                onClick={handleUpiSave}
-                data-testid="save-upi-btn"
-                className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide"
-              >
-                Update UPI
-              </Button>
+              <div className="space-y-2"><Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">UPI ID</Label><Input type="text" placeholder="yourname@paytm" value={upiForm.upi_id} onChange={(e) => setUpiForm({ upi_id: e.target.value })} data-testid="upi-input" className="bg-[#09090B] border border-[#222222] text-white font-mono" /></div>
+              <Button onClick={handleUpiSave} data-testid="save-upi-btn" className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide">Update UPI</Button>
             </div>
           </DialogContent>
         </Dialog>
 
-        {/* Withdraw Modal */}
         <Dialog open={isWithdrawOpen} onOpenChange={setIsWithdrawOpen}>
           <DialogContent className="bg-[#09090B] border border-[#222222] text-white max-w-md">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white">Withdraw to UPI</DialogTitle>
-            </DialogHeader>
+            <DialogHeader><DialogTitle className="text-2xl font-bold text-white">Withdraw to UPI</DialogTitle></DialogHeader>
             <div className="space-y-4 mt-4">
-              <div className="bg-[#10B981] bg-opacity-10 border border-[#10B981] rounded-lg p-4">
-                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-2">
-                  Available Balance
-                </p>
-                <p className="text-[#10B981] font-mono text-3xl font-black">
-                  {formatCurrency(user.balance)}
-                </p>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Withdrawal Amount
-                </Label>
-                <Input
-                  type="number"
-                  placeholder="Enter amount"
-                  value={withdrawForm.amount}
-                  onChange={(e) => setWithdrawForm({ ...withdrawForm, amount: e.target.value })}
-                  data-testid="withdraw-amount-input"
-                  className="bg-[#09090B] border border-[#222222] text-white text-2xl font-mono"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  UPI ID
-                </Label>
-                <Input
-                  type="text"
-                  value={withdrawForm.upi_id}
-                  readOnly
-                  data-testid="withdraw-upi-display"
-                  className="bg-[#09090B] border border-[#222222] text-white font-mono"
-                />
-              </div>
-              <Button
-                onClick={handleWithdraw}
-                data-testid="confirm-withdraw-btn"
-                className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-6 text-base"
-              >
-                Confirm Withdrawal
-              </Button>
+              <div className="bg-[#10B981] bg-opacity-10 border border-[#10B981] rounded-lg p-4"><p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-2">Available Balance</p><p className="text-[#10B981] font-mono text-3xl font-black">{formatCurrency(user.balance)}</p></div>
+              <div className="space-y-2"><Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Withdrawal Amount</Label><Input type="number" placeholder="Enter amount" value={withdrawForm.amount} onChange={(e) => setWithdrawForm({ ...withdrawForm, amount: e.target.value })} data-testid="withdraw-amount-input" className="bg-[#09090B] border border-[#222222] text-white text-2xl font-mono" /></div>
+              <div className="space-y-2"><Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">UPI ID</Label><Input type="text" value={withdrawForm.upi_id} readOnly data-testid="withdraw-upi-display" className="bg-[#09090B] border border-[#222222] text-white font-mono" /></div>
+              <Button onClick={handleWithdraw} data-testid="confirm-withdraw-btn" className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-6 text-base">Confirm Withdrawal</Button>
             </div>
           </DialogContent>
         </Dialog>
