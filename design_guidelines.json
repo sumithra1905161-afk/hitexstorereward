@@ -1,0 +1,132 @@
+{
+  "theme": "dark",
+  "archetype": "Industrial Minimalist (Swiss & High-Contrast mixed with Neon trigger)",
+  "color_palette": {
+    "background": {
+      "default": "#000000",
+      "surface": "#09090B",
+      "surface_elevated": "#121214"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "muted": "#71717A",
+      "inverse": "#000000"
+    },
+    "border": {
+      "default": "#222222",
+      "focus": "#10B981"
+    },
+    "accent": {
+      "primary": "#10B981",
+      "primary_hover": "#059669",
+      "glow": "rgba(16, 185, 129, 0.4)"
+    },
+    "status": {
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444",
+      "pending": "#3B82F6"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "headings": "Cabinet Grotesk, sans-serif",
+      "body": "IBM Plex Sans, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter font-black",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-bold",
+      "h3": "text-xl sm:text-2xl tracking-tight font-semibold",
+      "body": "text-base leading-relaxed font-normal",
+      "label": "text-xs tracking-[0.2em] uppercase font-bold text-[#A1A1AA]",
+      "numbers": "font-mono font-medium"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Heavy use of whitespace to separate sections, offset by dense data clusters. Pure black backgrounds with 1px solid borders.",
+    "scale": {
+      "section_gap": "gap-12 md:gap-20",
+      "card_padding": "p-6 sm:p-8"
+    },
+    "grids": {
+      "dashboard": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+      "bento_mobile": "grid-cols-1 gap-4"
+    },
+    "borders": "1px solid #222222, no border radius rounding larger than 8px (rounded-lg). Many elements can be rounded-none for a sharper industrial look.",
+    "shadows": "Zero traditional drop shadows. Use 1px borders for separation. For 'glow' effects (Top 3 winners), use drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]."
+  },
+  "components": {
+    "navigation": {
+      "mobile": "Persistent Bottom Navigation Bar with haptic feedback (using standard click states). Minimalist monochromatic icons (lucide-react). Pure black background with top border #222222.",
+      "desktop": "Slim Sidebar (w-64 or w-20 collapsed) with monochromatic icons. Border right #222222."
+    },
+    "buttons": {
+      "primary": "bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-6 py-3",
+      "secondary": "bg-transparent border border-[#222222] text-white hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-md px-6 py-3",
+      "ghost": "bg-transparent text-[#A1A1AA] hover:text-white transition-colors"
+    },
+    "cards": {
+      "default": "bg-transparent border border-[#222222] rounded-lg overflow-hidden",
+      "winner_card": "bg-transparent border border-[#10B981] rounded-lg overflow-hidden relative shadow-[0_0_20px_rgba(16,185,129,0.15)]"
+    },
+    "forms": {
+      "inputs": "bg-[#09090B] border border-[#222222] rounded-md text-white px-4 py-3 focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-all",
+      "labels": "text-xs tracking-widest uppercase text-[#A1A1AA] mb-2 block"
+    }
+  },
+  "animations_and_interactions": {
+    "hover_states": "Crisp, fast transitions (150ms). Borders lighting up to Emerald Green.",
+    "active_states": "Scale down slightly (scale-95) for haptic-like feel on mobile.",
+    "page_transitions": "Subtle fade-in (opacity 0 to 1). No heavy sliding.",
+    "accessibility": "Focus rings must be #10B981. Text contrast is AA compliant."
+  },
+  "media_and_assets": {
+    "icons": "lucide-react",
+    "image_urls": {
+      "avatar_placeholder": {
+        "url": "https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85",
+        "description": "Industrial worker portrait dark, used for Storekeeper User Verification and Leaderboard avatars."
+      },
+      "prize_1": {
+        "url": "https://images.unsplash.com/photo-1609682243212-7b5d77f37ccb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwZWxlY3RyaWMlMjBzY29vdGVyJTIwYmxhY2t8ZW58MHx8fHwxNzc0NTYxNjk0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Premium black electric scooter, used in the Top 3 Winners Monthly Prize grid."
+      },
+      "prize_2": {
+        "url": "https://images.unsplash.com/photo-1623319496365-1d045be389e2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBzbWFydCUyMHdhdGNoJTIwZGFya3xlbnwwfHx8fDE3NzQ1NjE2OTV8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Luxury smart watch on dark background, used in the Top 3 Winners Monthly Prize grid."
+      },
+      "map_placeholder": {
+        "url": "https://images.pexels.com/photos/5921677/pexels-photo-5921677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Google maps navigation screen, used as a placeholder in the Storekeeper 'Current Store' view."
+      }
+    }
+  },
+  "specific_portal_rules": {
+    "portal_1_user": {
+      "home_balance": "Must use 'numbers' typography hierarchy, massive scale (text-6xl or larger), crisp #FFFFFF against pure black.",
+      "leaderboard": "List items must be sparse. Top 3 rows receive 'winner_card' styling with a distinct emerald green glow."
+    },
+    "portal_2_storekeeper": {
+      "search_lookup": "Massive input field, auto-focus on load, instant mock verification showing the 'avatar_placeholder'.",
+      "transaction_form": "Minimalist fields. [Bill Amount] should feel like a calculator input. [Mill Name Selection] uses Shadcn Select."
+    },
+    "portal_3_admin": {
+      "approval_dashboard": "Data-heavy but clean. Use keyboard shortcuts (A/R) visual hints (e.g., [A] icon next to Approve button).",
+      "tables": "Do not use traditional table borders. Use pure CSS grid with padding and 1px bottom borders in #222222 to separate rows."
+    }
+  },
+  "testing": {
+    "data_testid_rules": "All interactive elements (buttons, inputs, navigation links) MUST include a 'data-testid' attribute formatted as kebab-case and role-based (e.g., 'submit-transaction-btn', 'mobile-nav-home')."
+  },
+  "instructions_to_main_agent": [
+    "Use standard HTML+Tailwind for layout shells, but integrate Shadcn UI primitives for interactives (Select, Dialog, Form, Tabs).",
+    "Install 'lucide-react' for all icons.",
+    "Do NOT use 'Inter' for headings. Use 'Cabinet Grotesk' or 'Manrope' via standard fallback if unavailable, but apply `font-sans` with custom web fonts configured in Tailwind.",
+    "Zero gradients everywhere, except the explicit glow shadow on Top 3 Leaderboard items.",
+    "PWA manifest configuration should target 'standalone' mode and define #000000 as theme_color and background_color.",
+    "For mock data, utilize the provided media URLs heavily. Do not use generic placeholders like via.placeholder.com.",
+    "Ensure the Desktop Sidebar is fixed and Mobile Bottom Nav is fixed at bottom (z-50)."
+  ]
+}
