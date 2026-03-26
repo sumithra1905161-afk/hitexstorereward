@@ -2,6 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import '@/App.css';
 
+// Auth Pages
+import UserAuthPage from '@/pages/auth/UserAuthPage';
+import StorekeeperAuthPage from '@/pages/auth/StorekeeperAuthPage';
+import AdminAuthPage from '@/pages/auth/AdminAuthPage';
+
 // User Portal Pages
 import HomePage from '@/pages/user/HomePage';
 import ScratchCardsPage from '@/pages/user/ScratchCardsPage';
@@ -27,8 +32,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {/* Default redirect */}
-          <Route path="/" element={<Navigate to="/user" replace />} />
+          {/* Default redirect to login */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          
+          {/* Auth Routes */}
+          <Route path="/login" element={<UserAuthPage />} />
+          <Route path="/storekeeper-login" element={<StorekeeperAuthPage />} />
+          <Route path="/admin-login" element={<AdminAuthPage />} />
           
           {/* User Portal Routes */}
           <Route path="/user" element={<HomePage />} />
@@ -50,8 +60,8 @@ function App() {
           <Route path="/admin/gifts" element={<AdminGiftsPage />} />
           <Route path="/admin/settings" element={<AdminSettingsPage />} />
 
-          {/* Catch all */}
-          <Route path="*" element={<Navigate to="/user" replace />} />
+          {/* Catch all - redirect to login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     </div>

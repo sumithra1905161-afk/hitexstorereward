@@ -8,10 +8,26 @@ export default function ReferralsPage() {
   const [copied, setCopied] = React.useState(false);
   const referralLink = generateReferralLink(mockUser.mobile_no);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(referralLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(referralLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = referralLink;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        alert('Failed to copy. Please copy manually: ' + referralLink);
+      }
+      document.body.removeChild(textArea);
+    }
   };
 
   const handleShare = () => {
