@@ -1,10 +1,13 @@
 import React from 'react';
-import { QrCode, UserPlus, MapPin } from 'lucide-react';
+import { Gift, UserPlus, MapPin } from 'lucide-react';
 import { UserLayout } from '@/components/Layout';
-import { mockUser } from '@/lib/mockData';
+import { mockUser, mockScratchCards } from '@/lib/mockData';
 import { formatCurrency } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
+  const unscratched = mockScratchCards.filter(c => !c.scratched).length;
+
   return (
     <UserLayout>
       <div className="max-w-5xl mx-auto p-6 md:p-12 space-y-12 fade-in">
@@ -33,20 +36,29 @@ export default function HomePage() {
             Quick Actions
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Scan to Pay */}
-            <button
-              data-testid="scan-to-pay-btn"
+            {/* Scratch Cards */}
+            <Link
+              to="/user/scratch-cards"
+              data-testid="scratch-cards-btn"
               className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
             >
-              <QrCode className="w-8 h-8 mb-4 text-[#10B981]" />
-              <h3 className="text-lg font-bold text-white mb-2">Scan to Pay</h3>
+              <div className="flex items-center justify-between mb-4">
+                <Gift className="w-8 h-8 text-[#10B981]" />
+                {unscratched > 0 && (
+                  <span className="bg-[#10B981] text-black font-bold text-xs px-2 py-1 rounded-full">
+                    {unscratched} NEW
+                  </span>
+                )}
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Scratch Cards</h3>
               <p className="text-sm text-[#A1A1AA] leading-relaxed">
-                Quick scan at checkout
+                Scratch & win bonus rewards
               </p>
-            </button>
+            </Link>
 
             {/* Invite Colleague */}
-            <button
+            <Link
+              to="/user/referrals"
               data-testid="invite-colleague-btn"
               className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
             >
@@ -55,7 +67,7 @@ export default function HomePage() {
               <p className="text-sm text-[#A1A1AA] leading-relaxed">
                 Earn 2% on their purchases
               </p>
-            </button>
+            </Link>
 
             {/* Find Store */}
             <button

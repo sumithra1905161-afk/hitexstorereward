@@ -270,6 +270,67 @@ export const mockMillNames = [
   'Tirupur Garment Mills'
 ];
 
+export const mockScratchCards = [
+  {
+    id: 'card-001',
+    earned_date: '2024-01-20T14:30:00Z',
+    purchase_amount: 50000,
+    bill_no: 'MG-2024-001234',
+    scratched: false,
+    reward_amount: 500,
+    reward_type: 'bonus_points'
+  },
+  {
+    id: 'card-002',
+    earned_date: '2024-01-20T10:15:00Z',
+    purchase_amount: 35000,
+    bill_no: 'BR-2024-000987',
+    scratched: false,
+    reward_amount: 350,
+    reward_type: 'bonus_points'
+  },
+  {
+    id: 'card-003',
+    earned_date: '2024-01-18T11:20:00Z',
+    purchase_amount: 42000,
+    bill_no: 'BR-2024-000945',
+    scratched: true,
+    reward_amount: 420,
+    reward_type: 'bonus_points',
+    scratched_date: '2024-01-18T15:30:00Z'
+  },
+  {
+    id: 'card-004',
+    earned_date: '2024-01-17T15:10:00Z',
+    purchase_amount: 38000,
+    bill_no: 'JN-2024-000801',
+    scratched: true,
+    reward_amount: 1000,
+    reward_type: 'jackpot',
+    scratched_date: '2024-01-17T18:00:00Z'
+  },
+  {
+    id: 'card-005',
+    earned_date: '2024-01-14T14:20:00Z',
+    purchase_amount: 45000,
+    bill_no: 'MG-2024-001156',
+    scratched: true,
+    reward_amount: 450,
+    reward_type: 'bonus_points',
+    scratched_date: '2024-01-14T20:00:00Z'
+  },
+  {
+    id: 'card-006',
+    earned_date: '2024-01-12T16:15:00Z',
+    purchase_amount: 52000,
+    bill_no: 'WF-2024-000623',
+    scratched: true,
+    reward_amount: 250,
+    reward_type: 'bonus_points',
+    scratched_date: '2024-01-12T19:30:00Z'
+  }
+];
+
 export const mockPassbookTransactions = [
   {
     id: 'txn-001',
