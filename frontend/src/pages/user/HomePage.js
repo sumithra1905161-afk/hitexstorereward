@@ -1,12 +1,35 @@
-import React from 'react';
-import { Gift, UserPlus, MapPin } from 'lucide-react';
+import React, { useState } from 'react';
+import { Gift, UserPlus, MapPin, QrCode as QrCodeIcon } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser, mockScratchCards } from '@/lib/mockData';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, formatMobileNumber } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 export default function HomePage() {
   const unscratched = mockScratchCards.filter(c => !c.scratched).length;
+  const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
+  const [isQrOpen, setIsQrOpen] = useState(false);
+  const [withdrawForm, setWithdrawForm] = useState({ amount: '', upi_id: mockUser.upi_id });
+
+  const handleWithdraw = () => {
+    if (parseFloat(withdrawForm.amount) > mockUser.balance) {
+      alert('Insufficient balance!');
+      return;
+    }
+    alert(`Withdrawal request of ${formatCurrency(parseFloat(withdrawForm.amount))} submitted to ${withdrawForm.upi_id}`);
+    setIsWithdrawOpen(false);
+    setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
+  };
 
   return (
     <UserLayout>
@@ -22,12 +45,26 @@ export default function HomePage() {
           >
             {formatCurrency(mockUser.balance)}
           </h1>
-          <button
-            data-testid="withdraw-balance-btn"
-            className="mt-6 bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-8 py-4 text-sm"
-          >
-            Withdraw to UPI
-          </button>
+          <div className="flex gap-4 mt-6">
+            <button
+              onClick={() => {
+                setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
+                setIsWithdrawOpen(true);
+              }}
+              data-testid="withdraw-balance-btn"
+              className="bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-8 py-4 text-sm"
+            >
+              Withdraw to UPI
+            </button>
+            <button
+              onClick={() => setIsQrOpen(true)}
+              data-testid="show-qr-home-btn"
+              className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide transition-colors rounded-md px-8 py-4 text-sm flex items-center gap-2"
+            >
+              <QrCodeIcon className="w-5 h-5" />
+              Show My QR
+            </button>
+          </div>
         </section>
 
         {/* Quick Actions */}
@@ -36,7 +73,6 @@ export default function HomePage() {
             Quick Actions
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Scratch Cards */}
             <Link
               to="/user/scratch-cards"
               data-testid="scratch-cards-btn"
@@ -56,7 +92,6 @@ export default function HomePage() {
               </p>
             </Link>
 
-            {/* Invite Colleague */}
             <Link
               to="/user/referrals"
               data-testid="invite-colleague-btn"
@@ -69,7 +104,6 @@ export default function HomePage() {
               </p>
             </Link>
 
-            {/* Find Store */}
             <button
               data-testid="find-store-btn"
               className="bg-transparent border border-[#222222] hover:border-[#10B981] hover:text-[#10B981] transition-colors rounded-lg p-6 text-left group"
@@ -102,6 +136,106 @@ export default function HomePage() {
             </p>
           </div>
         </section>
+
+        {/* Branded QR Code Modal */}
+        <Dialog open={isQrOpen} onOpenChange={setIsQrOpen}>
+          <DialogContent className="bg-[#000000] border-2 border-[#10B981] text-white max-w-md shadow-[0_0_50px_rgba(16,185,129,0.3)]">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-white text-center">My QR Code</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6 mt-4">
+              {/* Branded QR Container */}
+              <div className="bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] p-1 rounded-xl">
+                <div className="bg-white p-6 rounded-lg">
+                  <div className="text-center mb-4">
+                    <h2 className="text-2xl font-black text-[#000000] tracking-tight">
+                      Hitex <span className="text-[#10B981]">Spares</span>
+                    </h2>
+                    <p className="text-[#71717A] text-xs uppercase tracking-wider mt-1">Textile Rewards</p>
+                  </div>
+                  <div className="flex items-center justify-center mb-4">
+                    <QRCodeSVG
+                      value={mockUser.mobile_no}
+                      size={200}
+                      level="H"
+                      includeMargin={false}
+                      fgColor="#000000"
+                      bgColor="#FFFFFF"
+                      imageSettings={{
+                        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310B981'%3E%3Cpath d='M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z'/%3E%3C/svg%3E",
+                        height: 40,
+                        width: 40,
+                        excavate: true,
+                      }}
+                      data-testid="branded-qr-code"
+                    />
+                  </div>
+                  <div className="border-t-2 border-dashed border-[#E5E7EB] pt-4 text-center">
+                    <p className="text-[#000000] font-bold text-lg">{mockUser.full_name}</p>
+                    <p className="text-[#10B981] font-mono text-sm font-semibold">{formatMobileNumber(mockUser.mobile_no)}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center space-y-2">
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">Scan at Store Checkout</p>
+                <p className="text-[#71717A] text-xs leading-relaxed">
+                  Show this QR code to the storekeeper for instant verification and quick purchase entry
+                </p>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Withdraw Modal */}
+        <Dialog open={isWithdrawOpen} onOpenChange={setIsWithdrawOpen}>
+          <DialogContent className="bg-[#09090B] border border-[#222222] text-white max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-white">Withdraw to UPI</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 mt-4">
+              <div className="bg-[#10B981] bg-opacity-10 border border-[#10B981] rounded-lg p-4">
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-2">
+                  Available Balance
+                </p>
+                <p className="text-[#10B981] font-mono text-3xl font-black">
+                  {formatCurrency(mockUser.balance)}
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
+                  Withdrawal Amount
+                </Label>
+                <Input
+                  type="number"
+                  placeholder="Enter amount"
+                  value={withdrawForm.amount}
+                  onChange={(e) => setWithdrawForm({ ...withdrawForm, amount: e.target.value })}
+                  data-testid="withdraw-amount-input-home"
+                  className="bg-[#09090B] border border-[#222222] text-white text-2xl font-mono"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
+                  UPI ID
+                </Label>
+                <Input
+                  type="text"
+                  value={withdrawForm.upi_id}
+                  readOnly
+                  data-testid="withdraw-upi-display-home"
+                  className="bg-[#09090B] border border-[#222222] text-white font-mono"
+                />
+              </div>
+              <Button
+                onClick={handleWithdraw}
+                data-testid="confirm-withdraw-btn-home"
+                className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-6 text-base"
+              >
+                Confirm Withdrawal
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </UserLayout>
   );
