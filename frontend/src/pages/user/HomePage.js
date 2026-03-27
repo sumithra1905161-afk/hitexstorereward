@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useLanguage } from '@/lib/LanguageContext';
+import { toast } from 'sonner';
 import {
   Dialog,
   DialogContent,
@@ -25,17 +26,20 @@ export default function HomePage() {
 
   const handleWithdraw = () => {
     if (parseFloat(withdrawForm.amount) > mockUser.balance) {
-      alert(t('home.insufficientBalance'));
+      toast.error(t('home.insufficientBalance'));
       return;
     }
-    alert(`${t('home.withdrawalSubmitted')} - ${formatCurrency(parseFloat(withdrawForm.amount))} → ${withdrawForm.upi_id}`);
+    toast.success(t('home.withdrawalSuccess'), {
+      description: `${formatCurrency(parseFloat(withdrawForm.amount))} → ${withdrawForm.upi_id}`,
+      duration: 5000,
+    });
     setIsWithdrawOpen(false);
     setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
   };
 
   return (
     <UserLayout>
-      <div className="max-w-5xl mx-auto p-6 md:p-12 space-y-12 fade-in">
+      <div className="max-w-5xl mx-auto p-4 sm:p-6 md:p-12 space-y-8 sm:space-y-12 fade-in">
         {/* Balance Section */}
         <section data-testid="balance-section" className="space-y-4">
           <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
@@ -43,25 +47,25 @@ export default function HomePage() {
           </p>
           <h1 
             data-testid="user-balance" 
-            className="text-6xl sm:text-7xl lg:text-8xl font-mono font-black text-white tracking-tighter"
+            className="text-4xl sm:text-6xl lg:text-8xl font-mono font-black text-white tracking-tighter break-words"
           >
             {formatCurrency(mockUser.balance)}
           </h1>
-          <div className="flex gap-4 mt-6">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
             <button
               onClick={() => {
                 setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
                 setIsWithdrawOpen(true);
               }}
               data-testid="withdraw-balance-btn"
-              className="bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-8 py-4 text-sm"
+              className="bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm w-full sm:w-auto"
             >
               {t('home.withdrawToUpi')}
             </button>
             <button
               onClick={() => setIsQrOpen(true)}
               data-testid="show-qr-home-btn"
-              className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide transition-colors rounded-md px-8 py-4 text-sm flex items-center gap-2"
+              className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               <QrCodeIcon className="w-5 h-5" />
               {t('home.showMyQr')}
@@ -120,12 +124,12 @@ export default function HomePage() {
         </section>
 
         {/* Stats Grid */}
-        <section data-testid="stats-section" className="grid grid-cols-2 gap-6">
+        <section data-testid="stats-section" className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div className="bg-transparent border border-[#222222] rounded-lg p-6">
             <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
               {t('home.monthlyVolume')}
             </p>
-            <p className="text-3xl font-mono font-black text-white">
+            <p className="text-2xl sm:text-3xl font-mono font-black text-white break-words">
               {formatCurrency(mockUser.monthly_volume)}
             </p>
           </div>
@@ -133,7 +137,7 @@ export default function HomePage() {
             <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
               {t('home.rankThisMonth')}
             </p>
-            <p className="text-3xl font-mono font-black text-[#10B981]">
+            <p className="text-2xl sm:text-3xl font-mono font-black text-[#10B981]">
               #3
             </p>
           </div>
@@ -198,7 +202,7 @@ export default function HomePage() {
                 <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-2">
                   {t('home.availableBalance')}
                 </p>
-                <p className="text-[#10B981] font-mono text-3xl font-black">
+                <p className="text-[#10B981] font-mono text-2xl sm:text-3xl font-black break-words">
                   {formatCurrency(mockUser.balance)}
                 </p>
               </div>
@@ -212,7 +216,7 @@ export default function HomePage() {
                   value={withdrawForm.amount}
                   onChange={(e) => setWithdrawForm({ ...withdrawForm, amount: e.target.value })}
                   data-testid="withdraw-amount-input-home"
-                  className="bg-[#09090B] border border-[#222222] text-white text-2xl font-mono"
+                  className="bg-[#09090B] border border-[#222222] text-white text-xl sm:text-2xl font-mono"
                 />
               </div>
               <div className="space-y-2">

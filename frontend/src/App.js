@@ -1,6 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'sonner';
 import '@/App.css';
+
+// Pages
+import LandingPage from '@/pages/LandingPage';
 
 // Auth Pages
 import UserAuthPage from '@/pages/auth/UserAuthPage';
@@ -31,9 +35,19 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: '#09090B',
+              color: '#FFFFFF',
+              border: '1px solid #10B981',
+            },
+          }}
+        />
         <Routes>
-          {/* Default redirect to login */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          {/* Landing Page */}
+          <Route path="/" element={<LandingPage />} />
           
           {/* Auth Routes */}
           <Route path="/login" element={<UserAuthPage />} />
@@ -60,8 +74,8 @@ function App() {
           <Route path="/admin/gifts" element={<AdminGiftsPage />} />
           <Route path="/admin/settings" element={<AdminSettingsPage />} />
 
-          {/* Catch all - redirect to login */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          {/* Catch all - redirect to landing */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </div>

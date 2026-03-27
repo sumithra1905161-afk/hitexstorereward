@@ -22,6 +22,47 @@ export const en = {
     completed: 'Completed',
   },
 
+  // Landing Page
+  landing: {
+    trustedBy: 'Trusted by 500+ Mills',
+    heroTitle: 'Earn Rewards on Every',
+    heroTitleAccent: 'Textile Purchase',
+    heroSubtitle: 'Join the largest loyalty platform for textile recycling. Earn points, scratch cards, and exclusive prizes with every purchase.',
+    getStarted: 'Get Started',
+    storekeeperLogin: 'Storekeeper Login',
+    featuresLabel: 'Features',
+    featuresTitle: 'Why Choose Hitex Spares?',
+    feature1Title: 'Instant Rewards',
+    feature1Desc: 'Earn 3% cashback on every purchase. Get scratch cards for bonus rewards and exciting prizes.',
+    feature2Title: 'Referral Program',
+    feature2Desc: 'Invite colleagues and earn 2% commission on their lifetime purchases. Build your passive income.',
+    feature3Title: 'Monthly Leaderboard',
+    feature3Desc: 'Compete with others and win premium prizes. Top 3 performers get exclusive rewards every month.',
+    howItWorksLabel: 'How It Works',
+    howItWorksTitle: 'Get Started in 3 Simple Steps',
+    step1Title: 'Sign Up & Get Your QR',
+    step1Desc: 'Register with your mobile number and get your unique QR code instantly.',
+    step2Title: 'Make Purchases',
+    step2Desc: 'Show your QR at any partner store and earn rewards on every purchase.',
+    step3Title: 'Withdraw or Win',
+    step3Desc: 'Withdraw your balance to UPI or use it for scratch cards and monthly prizes.',
+    ctaTitle: 'Ready to Start Earning?',
+    ctaSubtitle: 'Join thousands of users already earning rewards on their textile purchases.',
+    ctaButton: 'Create Free Account',
+  },
+
+  // PWA Install Modal
+  pwaInstall: {
+    title: 'Install Hitex Spares',
+    appName: 'Hitex Spares Rewards',
+    description: 'Install our app for the best experience. Access your rewards anytime, anywhere.',
+    benefit1: 'Instant access from your home screen',
+    benefit2: 'Works offline - check balance anytime',
+    benefit3: 'Fast and lightweight - no app store needed',
+    installButton: 'Install Now',
+    cancelButton: 'Maybe Later',
+  },
+
   // Navigation
   nav: {
     home: 'Home',
@@ -102,6 +143,7 @@ export const en = {
     confirmWithdrawal: 'Confirm Withdrawal',
     insufficientBalance: 'Insufficient balance!',
     withdrawalSubmitted: 'Withdrawal request submitted',
+    withdrawalSuccess: 'Withdrawal request submitted successfully! Your request will be processed within 24 hours.',
   },
 
   // Passbook Page
