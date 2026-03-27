@@ -25,11 +25,11 @@ export const hi = {
   // Landing Page
   landing: {
     trustedBy: '500+ मिलों द्वारा विश्वसनीय',
-    heroTitle: 'हर टेक्सटाइल खरीद पर',
-    heroTitleAccent: 'रिवॉर्ड कमाएं',
+    heroTitle: 'हर टेक्सटाइल स्पेयर',
+    heroTitleAccent: 'खरीद पर रिवॉर्ड कमाएं',
     heroSubtitle: 'टेक्सटाइल रीसाइक्लिंग के लिए सबसे बड़े लॉयल्टी प्लेटफॉर्म में शामिल हों। हर खरीद पर पॉइंट्स, स्क्रैच कार्ड और विशेष पुरस्कार जीतें।',
     getStarted: 'शुरू करें',
-    storekeeperLogin: 'स्टोरकीपर लॉगिन',
+    adminLogin: 'एडमिन एक्सेस',
     featuresLabel: 'विशेषताएं',
     featuresTitle: 'Hitex Spares क्यों चुनें?',
     feature1Title: 'तत्काल रिवॉर्ड',
@@ -144,6 +144,13 @@ export const hi = {
     insufficientBalance: 'अपर्याप्त बैलेंस!',
     withdrawalSubmitted: 'निकासी अनुरोध जमा हो गया',
     withdrawalSuccess: 'निकासी अनुरोध सफलतापूर्वक जमा किया गया! आपका अनुरोध 24 घंटे के भीतर संसाधित किया जाएगा।',
+    withdrawalPending: 'निकासी प्रोसेसिंग में है',
+    pendingWithdrawalAmount: 'लंबित राशि',
+    pendingWithdrawalUpi: 'UPI ID',
+    pendingWithdrawalDate: 'अनुरोध किया गया',
+    cannotWithdrawMultiple: 'आपके पास पहले से एक लंबित निकासी अनुरोध है। कृपया इसके संसाधित होने तक प्रतीक्षा करें।',
+    withdrawalHistory: 'निकासी इतिहास',
+    viewHistory: 'इतिहास देखें',
   },
 
   // Passbook Page

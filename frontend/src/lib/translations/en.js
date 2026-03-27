@@ -26,10 +26,10 @@ export const en = {
   landing: {
     trustedBy: 'Trusted by 500+ Mills',
     heroTitle: 'Earn Rewards on Every',
-    heroTitleAccent: 'Textile Purchase',
+    heroTitleAccent: 'Textile Spare Purchase',
     heroSubtitle: 'Join the largest loyalty platform for textile recycling. Earn points, scratch cards, and exclusive prizes with every purchase.',
     getStarted: 'Get Started',
-    storekeeperLogin: 'Storekeeper Login',
+    adminLogin: 'Admin Access',
     featuresLabel: 'Features',
     featuresTitle: 'Why Choose Hitex Spares?',
     feature1Title: 'Instant Rewards',
@@ -144,6 +144,13 @@ export const en = {
     insufficientBalance: 'Insufficient balance!',
     withdrawalSubmitted: 'Withdrawal request submitted',
     withdrawalSuccess: 'Withdrawal request submitted successfully! Your request will be processed within 24 hours.',
+    withdrawalPending: 'Withdrawal Under Processing',
+    pendingWithdrawalAmount: 'Pending Amount',
+    pendingWithdrawalUpi: 'UPI ID',
+    pendingWithdrawalDate: 'Requested On',
+    cannotWithdrawMultiple: 'You already have a pending withdrawal request. Please wait until it is processed.',
+    withdrawalHistory: 'Withdrawal History',
+    viewHistory: 'View History',
   },
 
   // Passbook Page

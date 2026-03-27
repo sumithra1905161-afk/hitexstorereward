@@ -8,7 +8,8 @@ export const mockUser = {
   upi_id: 'rajesh@paytm',
   referred_by: null,
   balance: 12450.50,
-  monthly_volume: 415016.67
+  monthly_volume: 415016.67,
+  pending_withdrawal: null, // Set to null initially, will be set when withdrawal is requested
 };
 
 export const mockReferrals = [

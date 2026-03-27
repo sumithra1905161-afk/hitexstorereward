@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppHeader } from '@/components/AppHeader';
 import { useLanguage } from '@/lib/LanguageContext';
-import { ArrowRight, Gift, Users, Trophy, QrCode, Shield, Zap } from 'lucide-react';
+import { ArrowRight, Gift, Users, Trophy, QrCode, Shield, Zap, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function LandingPage() {
@@ -42,10 +42,11 @@ export default function LandingPage() {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button
-              onClick={() => navigate('/storekeeper-login')}
-              className="bg-transparent border border-[#222222] text-white hover:border-[#10B981] hover:text-[#10B981] font-bold uppercase tracking-wide px-8 py-6 text-base rounded-md transition-colors w-full sm:w-auto"
+              onClick={() => navigate('/admin-login')}
+              className="bg-transparent border border-[#333333] text-[#71717A] hover:border-[#10B981] hover:text-[#10B981] font-bold uppercase tracking-wide px-8 py-6 text-base rounded-md transition-colors w-full sm:w-auto flex items-center gap-2"
             >
-              {t('landing.storekeeperLogin')}
+              <Lock className="w-4 h-4" />
+              {t('landing.adminLogin')}
             </Button>
           </div>
         </div>

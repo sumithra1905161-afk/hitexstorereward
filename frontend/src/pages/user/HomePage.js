@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Gift, UserPlus, MapPin, QrCode as QrCodeIcon } from 'lucide-react';
+import { Gift, UserPlus, MapPin, QrCode as QrCodeIcon, Clock, AlertCircle } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser, mockScratchCards } from '@/lib/mockData';
@@ -23,12 +23,36 @@ export default function HomePage() {
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [withdrawForm, setWithdrawForm] = useState({ amount: '', upi_id: mockUser.upi_id });
+  const [pendingWithdrawal, setPendingWithdrawal] = useState(mockUser.pending_withdrawal);
+
+  const handleWithdrawClick = () => {
+    if (pendingWithdrawal) {
+      toast.error(t('home.cannotWithdrawMultiple'), {
+        duration: 5000,
+      });
+      return;
+    }
+    setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
+    setIsWithdrawOpen(true);
+  };
 
   const handleWithdraw = () => {
     if (parseFloat(withdrawForm.amount) > mockUser.balance) {
       toast.error(t('home.insufficientBalance'));
       return;
     }
+    
+    // Create pending withdrawal
+    const withdrawal = {
+      amount: parseFloat(withdrawForm.amount),
+      upi_id: withdrawForm.upi_id,
+      requested_at: new Date().toISOString(),
+      status: 'pending'
+    };
+    
+    setPendingWithdrawal(withdrawal);
+    mockUser.pending_withdrawal = withdrawal;
+    
     toast.success(t('home.withdrawalSuccess'), {
       description: `${formatCurrency(parseFloat(withdrawForm.amount))} → ${withdrawForm.upi_id}`,
       duration: 5000,
@@ -40,6 +64,52 @@ export default function HomePage() {
   return (
     <UserLayout>
       <div className="max-w-5xl mx-auto p-4 sm:p-6 md:p-12 space-y-8 sm:space-y-12 fade-in">
+        {/* Pending Withdrawal Alert */}
+        {pendingWithdrawal && (
+          <section className="bg-[#F59E0B]/10 border-2 border-[#F59E0B] rounded-lg p-6 animate-pulse">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-[#F59E0B] rounded-lg flex items-center justify-center flex-shrink-0">
+                <Clock className="w-6 h-6 text-black" />
+              </div>
+              <div className="flex-1 space-y-2">
+                <h3 className="text-lg font-bold text-[#F59E0B] uppercase tracking-wide">
+                  {t('home.withdrawalPending')}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                  <div>
+                    <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-1">
+                      {t('home.pendingWithdrawalAmount')}
+                    </p>
+                    <p className="text-2xl font-mono font-black text-[#F59E0B]">
+                      {formatCurrency(pendingWithdrawal.amount)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-1">
+                      {t('home.pendingWithdrawalUpi')}
+                    </p>
+                    <p className="text-sm font-mono text-white">
+                      {pendingWithdrawal.upi_id}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-1">
+                      {t('home.pendingWithdrawalDate')}
+                    </p>
+                    <p className="text-sm text-white">
+                      {new Date(pendingWithdrawal.requested_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-xs text-[#A1A1AA] mt-4 flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4" />
+                  Your withdrawal is being processed and will be completed within 24 hours.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Balance Section */}
         <section data-testid="balance-section" className="space-y-4">
           <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
@@ -53,14 +123,16 @@ export default function HomePage() {
           </h1>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
             <button
-              onClick={() => {
-                setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
-                setIsWithdrawOpen(true);
-              }}
+              onClick={handleWithdrawClick}
+              disabled={pendingWithdrawal !== null}
               data-testid="withdraw-balance-btn"
-              className="bg-[#10B981] text-black font-bold uppercase tracking-wide hover:bg-[#059669] transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm w-full sm:w-auto"
+              className={`font-bold uppercase tracking-wide transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm w-full sm:w-auto ${
+                pendingWithdrawal
+                  ? 'bg-[#333333] text-[#71717A] cursor-not-allowed'
+                  : 'bg-[#10B981] text-black hover:bg-[#059669]'
+              }`}
             >
-              {t('home.withdrawToUpi')}
+              {pendingWithdrawal ? t('home.withdrawalPending') : t('home.withdrawToUpi')}
             </button>
             <button
               onClick={() => setIsQrOpen(true)}
