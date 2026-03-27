@@ -4,6 +4,7 @@ import { UserLayout } from '@/components/Layout';
 import { useLanguage } from '@/lib/LanguageContext';
 import { withdrawalHistory } from '@/lib/mockDataEnhanced';
 import { formatCurrency } from '@/lib/utils';
+import { formatDiamonds } from '@/lib/diamondUtils';
 import { enhancements_en, enhancements_hi } from '@/lib/translationsEnhanced';
 import { useNavigate } from 'react-router-dom';
 

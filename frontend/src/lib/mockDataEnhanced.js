@@ -107,12 +107,13 @@ export const achievements = [
 ];
 
 // ========================================
-// WITHDRAWAL HISTORY
+// WITHDRAWAL HISTORY (Updated for Diamond System)
 // ========================================
 
 export const withdrawalHistory = [
   {
     id: 'wd-001',
+    diamonds: 25000,
     amount: 5000,
     upi_id: 'rajesh@paytm',
     status: 'completed',
@@ -128,6 +129,7 @@ export const withdrawalHistory = [
   },
   {
     id: 'wd-002',
+    diamonds: 17500,
     amount: 3500,
     upi_id: 'rajesh@paytm',
     status: 'completed',
@@ -137,6 +139,7 @@ export const withdrawalHistory = [
   },
   {
     id: 'wd-003',
+    diamonds: 40000,
     amount: 8000,
     upi_id: 'rajesh@paytm',
     status: 'completed',
@@ -214,7 +217,7 @@ export const notifications = [
 ];
 
 // ========================================
-// RECENT ACTIVITY
+// RECENT ACTIVITY (Updated for Diamond System)
 // ========================================
 
 export const recentActivity = [
@@ -224,7 +227,8 @@ export const recentActivity = [
     title: 'Purchase at MG Road Store',
     titleHi: 'MG रोड स्टोर पर खरीद',
     amount: 1500,
-    points: '+₹1,500',
+    diamonds: 7500, // 1500 * 5 (15% of ₹10,000 purchase)
+    points: '+7,500 💎',
     timestamp: '2024-03-27T10:30:00Z',
     icon: 'ShoppingCart',
     color: '#10B981'
@@ -235,7 +239,8 @@ export const recentActivity = [
     title: 'Referral Commission from Amit Singh',
     titleHi: 'अमित सिंह से रेफरल कमीशन',
     amount: 700,
-    points: '+₹700',
+    diamonds: 3500, // 700 * 5 (10% of ₹7,000 referral purchase)
+    points: '+3,500 💎',
     timestamp: '2024-03-26T15:20:00Z',
     icon: 'UserPlus',
     color: '#3B82F6'
@@ -246,7 +251,8 @@ export const recentActivity = [
     title: 'Scratch Card Win',
     titleHi: 'स्क्रैच कार्ड जीत',
     amount: 500,
-    points: '+₹500',
+    diamonds: 2500, // 500 * 5
+    points: '+2,500 💎',
     timestamp: '2024-03-25T12:10:00Z',
     icon: 'Gift',
     color: '#8B5CF6'
@@ -257,7 +263,8 @@ export const recentActivity = [
     title: 'UPI Withdrawal to rajesh@paytm',
     titleHi: 'rajesh@paytm को UPI निकासी',
     amount: -5000,
-    points: '-₹5,000',
+    diamonds: -25000, // 5000 * 5
+    points: '-25,000 💎',
     timestamp: '2024-03-20T10:30:00Z',
     icon: 'ArrowDownCircle',
     color: '#EF4444'
@@ -268,7 +275,8 @@ export const recentActivity = [
     title: 'Purchase at Brigade Road Store',
     titleHi: 'ब्रिगेड रोड स्टोर पर खरीद',
     amount: 1260,
-    points: '+₹1,260',
+    diamonds: 6300, // 1260 * 5 (15% of ₹8,400 purchase)
+    points: '+6,300 💎',
     timestamp: '2024-03-18T11:20:00Z',
     icon: 'ShoppingCart',
     color: '#10B981'
@@ -328,10 +336,18 @@ export const testimonials = [
 export const faqs = [
   {
     id: 'faq-001',
-    question: 'How do I earn rewards?',
-    questionHi: 'मैं रिवॉर्ड कैसे कमाऊं?',
-    answer: 'You earn 3% cashback on every purchase at partner stores. Simply show your QR code at checkout, and rewards are credited instantly to your account.',
-    answerHi: 'आप पार्टनर स्टोर पर हर खरीद पर 3% कैशबैक कमाते हैं। बस चेकआउट पर अपना QR कोड दिखाएं, और रिवॉर्ड तुरंत आपके खाते में जमा हो जाते हैं।',
+    question: 'How do I earn diamonds?',
+    questionHi: 'मैं हीरे कैसे कमाऊं?',
+    answer: 'You earn 15% diamonds on every direct purchase at partner stores. Simply show your QR code at checkout. For example: ₹10,000 purchase = 7,500 diamonds (worth ₹1,500). Referrals earn 10% diamonds.',
+    answerHi: 'आप पार्टनर स्टोर पर हर प्रत्यक्ष खरीद पर 15% हीरे कमाते हैं। बस चेकआउट पर अपना QR कोड दिखाएं। उदाहरण: ₹10,000 की खरीद = 7,500 हीरे (₹1,500 के बराबर)। रेफरल 10% हीरे कमाते हैं।',
+    category: 'earning'
+  },
+  {
+    id: 'faq-002',
+    question: 'How do diamonds convert to money?',
+    questionHi: 'हीरे पैसे में कैसे बदलते हैं?',
+    answer: '5 Diamonds = ₹1. When you withdraw, diamonds are automatically converted to INR and transferred to your UPI within 24 hours. Example: 25,000 diamonds = ₹5,000.',
+    answerHi: '5 हीरे = ₹1। जब आप निकालते हैं, तो हीरे स्वचालित रूप से INR में परिवर्तित हो जाते हैं और 24 घंटे के भीतर आपके UPI में स्थानांतरित हो जाते हैं। उदाहरण: 25,000 हीरे = ₹5,000।',
     category: 'earning'
   },
   {
@@ -344,18 +360,18 @@ export const faqs = [
   },
   {
     id: 'faq-003',
-    question: 'Is there a minimum withdrawal amount?',
-    questionHi: 'क्या न्यूनतम निकासी राशि है?',
-    answer: 'Yes, the minimum withdrawal amount is ₹500. The maximum per transaction is ₹50,000.',
-    answerHi: 'हां, न्यूनतम निकासी राशि ₹500 है। प्रति लेनदेन अधिकतम ₹50,000 है।',
+    question: 'What is the minimum withdrawal?',
+    questionHi: 'न्यूनतम निकासी क्या है?',
+    answer: 'Minimum withdrawal is 2,500 diamonds (₹500). Maximum per transaction is 250,000 diamonds (₹50,000).',
+    answerHi: 'न्यूनतम निकासी 2,500 हीरे (₹500) है। प्रति लेनदेन अधिकतम 250,000 हीरे (₹50,000) है।',
     category: 'withdrawal'
   },
   {
     id: 'faq-004',
     question: 'How does the referral program work?',
     questionHi: 'रेफरल प्रोग्राम कैसे काम करता है?',
-    answer: 'Share your unique referral code with colleagues. When they sign up and make purchases, you earn 2% commission on their lifetime purchases.',
-    answerHi: 'अपना यूनिक रेफरल कोड सहयोगियों के साथ साझा करें। जब वे साइन अप करते हैं और खरीदारी करते हैं, तो आप उनकी आजीवन खरीदारी पर 2% कमीशन कमाते हैं।',
+    answer: 'Share your unique referral code. When they make purchases, you earn 10% diamonds on their transactions forever! Example: Their ₹10,000 purchase = 5,000 diamonds for you (₹1,000).',
+    answerHi: 'अपना यूनिक रेफरल कोड साझा करें। जब वे खरीदारी करते हैं, तो आप उनके लेनदेन पर हमेशा के लिए 10% हीरे कमाते हैं! उदाहरण: उनकी ₹10,000 की खरीद = आपके लिए 5,000 हीरे (₹1,000)।',
     category: 'referral'
   },
   {
@@ -370,8 +386,8 @@ export const faqs = [
     id: 'faq-006',
     question: 'How do scratch cards work?',
     questionHi: 'स्क्रैच कार्ड कैसे काम करते हैं?',
-    answer: 'You receive a scratch card for every purchase above ₹30,000. Scratch to reveal bonus rewards ranging from ₹100 to ₹5,000.',
-    answerHi: '₹30,000 से ऊपर की हर खरीद के लिए आपको एक स्क्रैच कार्ड मिलता है। ₹100 से ₹5,000 तक के बोनस रिवॉर्ड प्रकट करने के लिए स्क्रैच करें।',
+    answer: 'You receive a scratch card for every purchase above ₹30,000. Scratch to reveal bonus diamonds ranging from 500 💎 to 25,000 💎 (₹100 to ₹5,000).',
+    answerHi: '₹30,000 से ऊपर की हर खरीद के लिए आपको एक स्क्रैच कार्ड मिलता है। 500 💎 से 25,000 💎 (₹100 से ₹5,000) तक के बोनस हीरे प्रकट करने के लिए स्क्रैच करें।',
     category: 'rewards'
   }
 ];
