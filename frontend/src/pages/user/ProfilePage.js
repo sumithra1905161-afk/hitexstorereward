@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Phone, Wallet, TrendingUp, Pencil, Plus, X, QrCode as QrCodeIcon } from 'lucide-react';
+import { User, Phone, Wallet, TrendingUp, Pencil, Plus, X, QrCode as QrCodeIcon, Trophy, ArrowRight } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser } from '@/lib/mockData';
@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useLanguage } from '@/lib/LanguageContext';
+import { Link } from 'react-router-dom';
+import { TierStatus } from '@/components/TierStatus';
 import {
   Dialog,
   DialogContent,
@@ -94,6 +96,32 @@ export default function ProfilePage() {
             {t('profile.showQr')}
           </Button>
         </section>
+
+        {/* Tier Status */}
+        <TierStatus />
+
+        {/* Achievements Link */}
+        <Link
+          to="/user/achievements"
+          className="block bg-gradient-to-r from-[#09090B] to-[#000000] border border-[#222222] rounded-lg p-6 hover:border-[#10B981] transition-colors group"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-[#10B981]/10 rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-[#10B981]" />
+              </div>
+              <div>
+                <p className="text-lg font-bold text-white group-hover:text-[#10B981] transition-colors">
+                  View All Achievements
+                </p>
+                <p className="text-sm text-[#71717A]">
+                  {user.achievements?.length || 0} unlocked • Earn badges and rewards
+                </p>
+              </div>
+            </div>
+            <ArrowRight className="w-6 h-6 text-[#10B981]" />
+          </div>
+        </Link>
 
         <section data-testid="profile-details-section" className="space-y-4">
           <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">{t('profile.accountDetails')}</p>

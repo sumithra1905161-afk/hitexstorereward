@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Languages } from 'lucide-react';
+import { Download, Languages, Bell } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { PWAInstallModal } from '@/components/PWAInstallModal';
+import { NotificationCenter } from '@/components/NotificationCenter';
+import { mockUser } from '@/lib/mockData';
 
 export const AppHeader = ({ variant = 'default' }) => {
   const { lang, toggleLang, t } = useLanguage();
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(false);
   const [showInstallModal, setShowInstallModal] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
     const handler = (e) => {
@@ -71,6 +74,21 @@ export const AppHeader = ({ variant = 'default' }) => {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
+            {/* Notification Bell - Only show when not auth */}
+            {!isAuth && (
+              <button
+                onClick={() => setShowNotifications(true)}
+                className="relative w-10 h-10 bg-transparent border border-[#333333] text-white hover:border-[#10B981] hover:text-[#10B981] rounded-md transition-colors flex items-center justify-center"
+              >
+                <Bell className="w-4 h-4" />
+                {mockUser.notifications_unread > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#EF4444] rounded-full flex items-center justify-center text-[10px] font-bold text-white">
+                    {mockUser.notifications_unread}
+                  </span>
+                )}
+              </button>
+            )}
+
             {/* PWA Install */}
             {!isInstalled && deferredPrompt && (
               <button
@@ -101,6 +119,12 @@ export const AppHeader = ({ variant = 'default' }) => {
         isOpen={showInstallModal}
         onClose={() => setShowInstallModal(false)}
         onInstall={handleInstall}
+      />
+
+      {/* Notification Center */}
+      <NotificationCenter
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
       />
     </>
   );

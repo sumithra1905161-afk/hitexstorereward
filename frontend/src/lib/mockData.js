@@ -10,6 +10,19 @@ export const mockUser = {
   balance: 12450.50,
   monthly_volume: 415016.67,
   pending_withdrawal: null, // Set to null initially, will be set when withdrawal is requested
+  daily_streak: 7,
+  last_login: new Date().toISOString(),
+  tier: 'silver', // bronze, silver, gold, platinum
+  total_earned: 45250.75,
+  referral_code: 'RAJESH2024',
+  achievements: ['first_purchase', 'top_10', 'referral_master_5'],
+  notifications_unread: 3,
+  onboarding_completed: true,
+  bank_details: {
+    account_number: '1234567890',
+    ifsc_code: 'SBIN0001234',
+    account_holder: 'Rajesh Kumar'
+  }
 };
 
 export const mockReferrals = [

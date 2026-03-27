@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Gift, UserPlus, MapPin, QrCode as QrCodeIcon, Clock, AlertCircle } from 'lucide-react';
+import { Gift, UserPlus, MapPin, QrCode as QrCodeIcon, Clock, AlertCircle, History } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser, mockScratchCards } from '@/lib/mockData';
@@ -16,6 +16,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+
+// Import new components
+import { ActivityFeed } from '@/components/ActivityFeed';
+import { QuickStats } from '@/components/QuickStats';
+import { StreakCounter } from '@/components/StreakCounter';
+import { ProgressToRank } from '@/components/ProgressToRank';
+import { BadgeDisplay } from '@/components/BadgeDisplay';
 
 export default function HomePage() {
   const { t } = useLanguage();
@@ -63,7 +70,10 @@ export default function HomePage() {
 
   return (
     <UserLayout>
-      <div className="max-w-5xl mx-auto p-4 sm:p-6 md:p-12 space-y-8 sm:space-y-12 fade-in">
+      <div className="max-w-7xl mx-auto p-4 sm:p-6 md:p-12 space-y-8 sm:space-y-12 fade-in">
+        {/* Streak Counter */}
+        <StreakCounter />
+
         {/* Pending Withdrawal Alert */}
         {pendingWithdrawal && (
           <section className="bg-[#F59E0B]/10 border-2 border-[#F59E0B] rounded-lg p-6 animate-pulse">
@@ -121,12 +131,12 @@ export default function HomePage() {
           >
             {formatCurrency(mockUser.balance)}
           </h1>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
+          <div className="flex flex-wrap gap-3 sm:gap-4 mt-6">
             <button
               onClick={handleWithdrawClick}
               disabled={pendingWithdrawal !== null}
               data-testid="withdraw-balance-btn"
-              className={`font-bold uppercase tracking-wide transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm w-full sm:w-auto ${
+              className={`font-bold uppercase tracking-wide transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm ${
                 pendingWithdrawal
                   ? 'bg-[#333333] text-[#71717A] cursor-not-allowed'
                   : 'bg-[#10B981] text-black hover:bg-[#059669]'
@@ -137,13 +147,29 @@ export default function HomePage() {
             <button
               onClick={() => setIsQrOpen(true)}
               data-testid="show-qr-home-btn"
-              className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm flex items-center justify-center gap-2 w-full sm:w-auto"
+              className="bg-transparent border border-[#10B981] text-[#10B981] hover:bg-[#10B981] hover:text-black font-bold uppercase tracking-wide transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm flex items-center justify-center gap-2"
             >
               <QrCodeIcon className="w-5 h-5" />
               {t('home.showMyQr')}
             </button>
+            <Link
+              to="/user/withdrawal-history"
+              className="bg-transparent border border-[#333333] text-[#A1A1AA] hover:border-[#10B981] hover:text-[#10B981] font-bold uppercase tracking-wide transition-colors rounded-md px-6 sm:px-8 py-3 sm:py-4 text-sm flex items-center justify-center gap-2"
+            >
+              <History className="w-5 h-5" />
+              {t('home.viewHistory')}
+            </Link>
           </div>
         </section>
+
+        {/* Quick Stats Grid */}
+        <QuickStats />
+
+        {/* Two Column Layout: Progress & Badges */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <ProgressToRank />
+          <BadgeDisplay userAchievements={mockUser.achievements} />
+        </div>
 
         {/* Quick Actions */}
         <section data-testid="quick-actions-section" className="space-y-6">
@@ -195,25 +221,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Stats Grid */}
-        <section data-testid="stats-section" className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          <div className="bg-transparent border border-[#222222] rounded-lg p-6">
-            <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
-              {t('home.monthlyVolume')}
-            </p>
-            <p className="text-2xl sm:text-3xl font-mono font-black text-white break-words">
-              {formatCurrency(mockUser.monthly_volume)}
-            </p>
-          </div>
-          <div className="bg-transparent border border-[#222222] rounded-lg p-6">
-            <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-3">
-              {t('home.rankThisMonth')}
-            </p>
-            <p className="text-2xl sm:text-3xl font-mono font-black text-[#10B981]">
-              #3
-            </p>
-          </div>
-        </section>
+        {/* Recent Activity Feed */}
+        <ActivityFeed limit={5} />
 
         {/* Branded QR Code Modal */}
         <Dialog open={isQrOpen} onOpenChange={setIsQrOpen}>

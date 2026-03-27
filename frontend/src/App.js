@@ -18,6 +18,8 @@ import PassbookPage from '@/pages/user/PassbookPage';
 import ReferralsPage from '@/pages/user/ReferralsPage';
 import LeaderboardPage from '@/pages/user/LeaderboardPage';
 import ProfilePage from '@/pages/user/ProfilePage';
+import WithdrawalHistoryPage from '@/pages/user/WithdrawalHistoryPage';
+import AchievementsPage from '@/pages/user/AchievementsPage';
 
 // Storekeeper Portal Pages
 import StorekeeperPage from '@/pages/storekeeper/StorekeeperPage';
@@ -61,6 +63,8 @@ function App() {
           <Route path="/user/referrals" element={<ReferralsPage />} />
           <Route path="/user/leaderboard" element={<LeaderboardPage />} />
           <Route path="/user/profile" element={<ProfilePage />} />
+          <Route path="/user/withdrawal-history" element={<WithdrawalHistoryPage />} />
+          <Route path="/user/achievements" element={<AchievementsPage />} />
 
           {/* Storekeeper Portal Routes */}
           <Route path="/storekeeper" element={<StorekeeperPage />} />
