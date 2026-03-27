@@ -4,6 +4,7 @@ import { UserLayout } from '@/components/Layout';
 import { ScratchCardModal } from '@/components/ScratchCardModal';
 import { mockScratchCards } from '@/lib/mockData';
 import { formatCurrency, formatDate } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/lib/LanguageContext';
 
@@ -82,9 +83,9 @@ export default function ScratchCardsPage() {
               </p>
             </div>
             <p className="text-4xl font-mono font-black text-white">
-              {formatCurrency(
+              {formatDiamonds(inrToDiamonds(
                 scratched.reduce((sum, c) => sum + c.reward_amount, 0)
-              )}
+              ))}
             </p>
           </div>
         </section>
@@ -169,7 +170,7 @@ export default function ScratchCardsPage() {
                       "font-mono font-bold text-xl",
                       card.reward_type === 'jackpot' ? "text-[#F59E0B]" : "text-[#10B981]"
                     )}>
-                      +{formatCurrency(card.reward_amount)}
+                      +{formatDiamonds(inrToDiamonds(card.reward_amount))}
                     </p>
                   </div>
                   <div className="md:col-span-1 text-right">

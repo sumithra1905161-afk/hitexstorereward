@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { formatCurrency } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 
 export default function AdminSettingsPage() {
   const [scratchSettings, setScratchSettings] = useState({
@@ -92,7 +93,7 @@ export default function AdminSettingsPage() {
                 {/* Min Reward */}
                 <div className="space-y-2">
                   <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                    Minimum Reward Amount
+                    Minimum Reward (💎)
                   </Label>
                   <Input
                     type="number"
@@ -102,14 +103,14 @@ export default function AdminSettingsPage() {
                     className="bg-[#09090B] border border-[#222222] text-white text-xl font-mono"
                   />
                   <p className="text-[#71717A] text-xs">
-                    Minimum bonus points: {formatCurrency(scratchSettings.minReward)}
+                    Minimum bonus: {formatDiamonds(inrToDiamonds(scratchSettings.minReward))}
                   </p>
                 </div>
 
                 {/* Max Reward */}
                 <div className="space-y-2">
                   <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                    Maximum Reward Amount
+                    Maximum Reward (💎)
                   </Label>
                   <Input
                     type="number"
@@ -119,14 +120,14 @@ export default function AdminSettingsPage() {
                     className="bg-[#09090B] border border-[#222222] text-white text-xl font-mono"
                   />
                   <p className="text-[#71717A] text-xs">
-                    Maximum bonus points: {formatCurrency(scratchSettings.maxReward)}
+                    Maximum bonus: {formatDiamonds(inrToDiamonds(scratchSettings.maxReward))}
                   </p>
                 </div>
 
                 {/* Jackpot Reward */}
                 <div className="space-y-2">
                   <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                    Jackpot Reward Amount
+                    Jackpot Reward (💎)
                   </Label>
                   <Input
                     type="number"
@@ -136,7 +137,7 @@ export default function AdminSettingsPage() {
                     className="bg-[#09090B] border border-[#222222] text-white text-xl font-mono"
                   />
                   <p className="text-[#71717A] text-xs">
-                    Special jackpot bonus: {formatCurrency(scratchSettings.jackpotReward)}
+                    Special jackpot bonus: {formatDiamonds(inrToDiamonds(scratchSettings.jackpotReward))}
                   </p>
                 </div>
 
@@ -237,10 +238,10 @@ export default function AdminSettingsPage() {
                     Purchase Amount: <span className="font-mono font-bold text-[#10B981]">₹50,000</span>
                   </p>
                   <p className="text-[#A1A1AA]">
-                    • Buyer gets: <span className="font-mono font-bold text-white">{formatCurrency(50000 * (referralSettings.directReferralPercent / 100))}</span> ({referralSettings.directReferralPercent}%)
+                    • Buyer gets: <span className="font-mono font-bold text-white">{formatDiamonds(inrToDiamonds(50000 * (referralSettings.directReferralPercent / 100)))}</span> ({referralSettings.directReferralPercent}%)
                   </p>
                   <p className="text-[#A1A1AA]">
-                    • Referrer gets: <span className="font-mono font-bold text-white">{formatCurrency(50000 * (referralSettings.indirectReferralPercent / 100))}</span> ({referralSettings.indirectReferralPercent}%)
+                    • Referrer gets: <span className="font-mono font-bold text-white">{formatDiamonds(inrToDiamonds(50000 * (referralSettings.indirectReferralPercent / 100)))}</span> ({referralSettings.indirectReferralPercent}%)
                   </p>
                 </div>
               </div>

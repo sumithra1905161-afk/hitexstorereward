@@ -4,6 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser } from '@/lib/mockData';
 import { formatCurrency, formatMobileNumber } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -143,9 +144,9 @@ export default function ProfilePage() {
             <div className="bg-transparent border border-[#222222] rounded-lg p-6">
               <div className="flex items-center gap-3 mb-3">
                 <Wallet className="w-5 h-5 text-[#10B981]" />
-                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">{t('profile.availableBalance')}</p>
+                <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">{t('profile.availableBalance')} 💎</p>
               </div>
-              <p className="text-[#10B981] font-mono text-2xl font-black">{formatCurrency(user.balance)}</p>
+              <p className="text-[#10B981] font-mono text-2xl font-black">{formatDiamonds(user.balance_diamonds || 0)}</p>
             </div>
             <div className="bg-transparent border border-[#222222] rounded-lg p-6">
               <div className="flex items-center gap-3 mb-3">

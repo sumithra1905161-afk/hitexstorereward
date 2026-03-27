@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Star } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { testimonials } from '@/lib/mockDataEnhanced';
-import { formatCurrency } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { enhancements_en, enhancements_hi } from '@/lib/translationsEnhanced';
 
 export const TestimonialsSection = () => {
@@ -51,7 +51,7 @@ export const TestimonialsSection = () => {
                     {lang === 'hi' ? testimonial.companyHi : testimonial.company}
                   </p>
                   <p className="text-[#10B981] text-xs font-semibold mt-1">
-                    {te.testimonials.earned}: {formatCurrency(testimonial.earned)}
+                    {te.testimonials.earned}: {formatDiamonds(inrToDiamonds(testimonial.earned))}
                   </p>
                 </div>
               </div>

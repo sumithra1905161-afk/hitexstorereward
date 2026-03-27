@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { X, Trophy, Sparkles } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 export const ScratchCardModal = ({ card, isOpen, onClose, onComplete }) => {
@@ -158,10 +159,10 @@ export const ScratchCardModal = ({ card, isOpen, onClose, onComplete }) => {
               <p className={`text-5xl font-mono font-black ${
                 isJackpot ? 'text-white' : 'text-[#10B981]'
               }`}>
-                {formatCurrency(card?.reward_amount || 0)}
+                {formatDiamonds(inrToDiamonds(card?.reward_amount || 0))}
               </p>
               <p className="text-[#A1A1AA] text-sm mt-4">
-                Bonus Points Added!
+                Bonus 💎 Added!
               </p>
             </div>
 

@@ -3,6 +3,7 @@ import { Share2, Copy, Check } from 'lucide-react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser, mockReferrals } from '@/lib/mockData';
 import { formatCurrency, formatMobileNumber, generateReferralLink, shareOnWhatsApp } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { useLanguage } from '@/lib/LanguageContext';
 
 export default function ReferralsPage() {
@@ -95,7 +96,7 @@ export default function ReferralsPage() {
                   <p className="text-[#A1A1AA] text-sm">{formatMobileNumber(referral.mobile_no)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[#10B981] font-mono font-bold text-lg">{formatCurrency(referral.lifetime_contribution)}</p>
+                  <p className="text-[#10B981] font-mono font-bold text-lg">{formatDiamonds(inrToDiamonds(referral.lifetime_contribution))}</p>
                   <p className="text-[#71717A] text-xs mt-1">{t('referrals.lifetimeEarned')}</p>
                 </div>
               </div>

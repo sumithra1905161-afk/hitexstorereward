@@ -3,6 +3,7 @@ import { Users, Search, Pencil, Ban, Check } from 'lucide-react';
 import { AdminLayout } from '@/components/Layout';
 import { mockUser, mockLeaderboard } from '@/lib/mockData';
 import { formatCurrency, formatMobileNumber } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -144,10 +145,10 @@ export default function AdminUsersPage() {
                   {/* Balance */}
                   <div className="md:col-span-1">
                     <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-1">
-                      Balance
+                      Balance 💎
                     </p>
                     <p className="text-[#10B981] font-mono font-bold">
-                      {formatCurrency(user.balance || 0)}
+                      {formatDiamonds(user.balance_diamonds || user.balance || 0)}
                     </p>
                   </div>
 
@@ -229,7 +230,7 @@ export default function AdminUsersPage() {
               </div>
               <div className="space-y-2">
                 <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-                  Balance
+                  Balance (💎)
                 </Label>
                 <Input
                   type="number"

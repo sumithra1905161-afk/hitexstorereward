@@ -4,6 +4,7 @@ import { UserLayout } from '@/components/Layout';
 import { mockPassbookTransactions, mockUser } from '@/lib/mockData';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { useLanguage } from '@/lib/LanguageContext';
 import {
   Select,
@@ -14,7 +15,7 @@ import {
 } from '@/components/ui/select';
 
 export default function PassbookPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [filter, setFilter] = useState('all');
 
   const filteredTransactions = filter === 'all'
@@ -67,10 +68,10 @@ export default function PassbookPage() {
               </p>
             </div>
             <p className="text-3xl font-mono font-black text-[#10B981]">
-              {formatCurrency(
-                mockPassbookTransactions
+              {formatDiamonds(
+                inrToDiamonds(mockPassbookTransactions
                   .filter(txn => txn.points_credited > 0)
-                  .reduce((sum, txn) => sum + txn.points_credited, 0)
+                  .reduce((sum, txn) => sum + txn.points_credited, 0))
               )}
             </p>
           </div>
@@ -99,7 +100,7 @@ export default function PassbookPage() {
               </p>
             </div>
             <p className="text-3xl font-mono font-black text-white">
-              {formatCurrency(mockUser.balance)}
+              {formatDiamonds(mockUser.balance_diamonds)}
             </p>
           </div>
         </section>
@@ -189,7 +190,7 @@ export default function PassbookPage() {
                     "font-mono font-bold",
                     txn.points_credited > 0 ? "text-[#10B981]" : "text-[#A1A1AA]"
                   )}>
-                    {txn.points_credited > 0 ? `+${formatCurrency(txn.points_credited)}` : '-'}
+                    {txn.points_credited > 0 ? `+${formatDiamonds(inrToDiamonds(txn.points_credited))}` : '-'}
                   </p>
                 </div>
 
@@ -210,7 +211,7 @@ export default function PassbookPage() {
                     {formatDate(txn.date)}
                   </p>
                   <p className="text-white font-mono text-sm font-bold">
-                    {formatCurrency(txn.balance_after)}
+                    {formatDiamonds(inrToDiamonds(txn.balance_after))}
                   </p>
                   <p className="text-[#71717A] text-xs uppercase tracking-wide">
                     {t('common.balance')}

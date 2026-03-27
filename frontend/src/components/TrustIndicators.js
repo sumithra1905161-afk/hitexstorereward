@@ -2,7 +2,7 @@ import React from 'react';
 import { DollarSign, Users, Store, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { trustIndicators } from '@/lib/mockDataEnhanced';
-import { formatCurrency } from '@/lib/utils';
+import { formatDiamonds, inrToDiamonds } from '@/lib/diamondUtils';
 import { enhancements_en, enhancements_hi } from '@/lib/translationsEnhanced';
 
 export const TrustIndicators = () => {
@@ -12,7 +12,7 @@ export const TrustIndicators = () => {
   const indicators = [
     {
       icon: DollarSign,
-      value: formatCurrency(trustIndicators.total_distributed),
+      value: formatDiamonds(inrToDiamonds(trustIndicators.total_distributed)),
       label: te.trust.distributed,
       color: '#10B981'
     },

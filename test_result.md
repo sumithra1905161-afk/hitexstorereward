@@ -225,6 +225,18 @@ frontend:
           agent: "main"
           comment: "Leaderboard displays locations (Hyderabad, Mumbai, Delhi, etc.) instead of mobile numbers. Tested on mobile viewport - text properly formatted with no overlays. Hindi translations working."
 
+  - task: "Diamond UI Migration"
+    implemented: true
+    working: true
+    file: "Multiple files - see comment"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Migrated all reward/points/balance displays to use diamond emoji (💎) while keeping purchase amounts/volumes in ₹. Updated PassbookPage.js, ProfilePage.js, AdminSettingsPage.js, AdminUsersPage.js, ReferralsPage.js, ScratchCardsPage.js, ScratchCardModal.js, TestimonialsSection.js, TrustIndicators.js. Uses formatDiamonds() from diamondUtils.js for consistent formatting."
+
 backend:
   - task: "Basic Backend Setup"
     implemented: true
@@ -258,3 +270,5 @@ agent_communication:
       message: "SESSION 1: Frontend imported successfully from GitHub repo. Both 'Withdraw to UPI' and 'Show QR' buttons were ALREADY IMPLEMENTED and WORKING PERFECTLY. Screenshot testing confirmed both modals display with proper Emerald Green (#10B981) branding. Frontend running on port 3000, backend running on port 8001."
     - agent: "main"
       message: "SESSION 2: Completed all requested features: 1) Created comprehensive Landing Page with hero, features, how-it-works, CTA sections. 2) Added PWA Install Modal that opens when clicking 'Install App' button in header. 3) Replaced withdrawal alert with success toast popup showing 'request submitted and will be processed'. 4) Fixed mobile responsive issues - all text properly wraps, no overlays on any screen size. 5) Verified Hindi language implementation works perfectly across ALL pages (Landing, Home, Leaderboard, Modals). Tested on mobile viewport (375x812) - everything working correctly."
+    - agent: "main"
+      message: "SESSION 3 - DIAMOND UI MIGRATION COMPLETED: Successfully migrated all reward/points/balance displays to use diamonds (💎) while keeping purchase amounts/volumes in ₹. Updated files: PassbookPage.js (Total Earned, Current Balance, Credited amounts show 💎), ProfilePage.js (Available Balance shows 💎), AdminSettingsPage.js (reward labels & example calculations show 💎), AdminUsersPage.js (Balance column shows 💎), ReferralsPage.js (lifetime earnings show 💎), ScratchCardsPage.js (Total Won & bonus amounts show 💎), ScratchCardModal.js (reward reveal shows 💎), TestimonialsSection.js (earned amounts show 💎), TrustIndicators.js (total distributed shows 💎). FAQ section already contains diamond information. Withdrawals correctly stay in ₹ as they convert to INR."
