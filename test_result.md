@@ -260,9 +260,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "User Home Page - UPI Withdraw and QR functionality COMPLETED"
+    - "Frontend Testing - All Portals (User, Admin, Storekeeper)"
+    - "Diamond UI Migration Verification"
   stuck_tasks: []
-  test_all: false
+  test_all: true
   test_priority: "high_first"
 
 agent_communication:
@@ -272,3 +273,5 @@ agent_communication:
       message: "SESSION 2: Completed all requested features: 1) Created comprehensive Landing Page with hero, features, how-it-works, CTA sections. 2) Added PWA Install Modal that opens when clicking 'Install App' button in header. 3) Replaced withdrawal alert with success toast popup showing 'request submitted and will be processed'. 4) Fixed mobile responsive issues - all text properly wraps, no overlays on any screen size. 5) Verified Hindi language implementation works perfectly across ALL pages (Landing, Home, Leaderboard, Modals). Tested on mobile viewport (375x812) - everything working correctly."
     - agent: "main"
       message: "SESSION 3 - DIAMOND UI MIGRATION COMPLETED: Successfully migrated all reward/points/balance displays to use diamonds (💎) while keeping purchase amounts/volumes in ₹. Updated files: PassbookPage.js (Total Earned, Current Balance, Credited amounts show 💎), ProfilePage.js (Available Balance shows 💎), AdminSettingsPage.js (reward labels & example calculations show 💎), AdminUsersPage.js (Balance column shows 💎), ReferralsPage.js (lifetime earnings show 💎), ScratchCardsPage.js (Total Won & bonus amounts show 💎), ScratchCardModal.js (reward reveal shows 💎), TestimonialsSection.js (earned amounts show 💎), TrustIndicators.js (total distributed shows 💎). FAQ section already contains diamond information. Withdrawals correctly stay in ₹ as they convert to INR."
+    - agent: "testing"
+      message: "SESSION 4 - COMPREHENSIVE TESTING COMPLETED: Tested all 3 portals (User, Admin, Storekeeper) and Landing Page. ALL TESTS PASSED ✅. User Portal (6 pages): Home page balance shows 💎, Withdraw/QR modals work perfectly, Passbook shows 💎 for earned/balance and ₹ for withdrawn, Referrals show 💎 for lifetime earnings, Scratch Cards show 💎 for Total Won, Leaderboard shows locations (not mobile) with ₹ volume, Profile shows 💎 balance and ₹ volume. Admin Portal (7 pages): All pages load correctly, Users page shows 💎 balance and ₹ volume, Settings shows 💎 for scratch rewards and referral calculations, Payouts show ₹. Storekeeper Portal: Mobile search works, QR scan modal opens, transaction form appears. Landing Page: Hero loads, FAQ visible, Trust Indicators show '2,50,00,000 💎' for distributed amount (verified with screenshot). No NaN/undefined values found. Minor non-critical issues: React duplicate key warnings (faq-002, user-1), PostHog analytics network error (external service). Diamond UI migration is 100% successful across all portals."
