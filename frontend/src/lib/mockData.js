@@ -1,5 +1,15 @@
 // Mock data for Elite Spare Rewards
 
+// DIAMOND SYSTEM CONVERSION
+// 5 Diamonds = ₹1
+// 1 Diamond = ₹0.20
+// Direct Purchase: 15% diamonds
+// Indirect Purchase (Referrals): 10% diamonds
+
+export const DIAMOND_CONVERSION_RATE = 5; // 5 diamonds = 1 INR
+export const DIRECT_PURCHASE_RATE = 0.15; // 15% in diamonds
+export const INDIRECT_PURCHASE_RATE = 0.10; // 10% in diamonds
+
 export const mockUser = {
   id: 'user-1',
   mobile_no: '+919876543210',
@@ -7,13 +17,13 @@ export const mockUser = {
   avatar_url: 'https://images.unsplash.com/photo-1683470156390-79fc319b7e7a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwd29ya2VyJTIwcG9ydHJhaXQlMjBkYXJrfGVufDB8fHx8MTc3NDU2MTY5NXww&ixlib=rb-4.1.0&q=85',
   upi_id: 'rajesh@paytm',
   referred_by: null,
-  balance: 12450.50,
-  monthly_volume: 415016.67,
-  pending_withdrawal: null, // Set to null initially, will be set when withdrawal is requested
+  balance_diamonds: 62252, // ₹12,450.50 × 5 = 62,252.5 diamonds
+  monthly_volume: 415016.67, // Keep volume in INR for tracking
+  pending_withdrawal: null,
   daily_streak: 7,
   last_login: new Date().toISOString(),
-  tier: 'silver', // bronze, silver, gold, platinum
-  total_earned: 45250.75,
+  tier: 'silver',
+  total_earned_diamonds: 226253, // ₹45,250.75 × 5 = 226,253.75 diamonds
   referral_code: 'RAJESH2024',
   achievements: ['first_purchase', 'top_10', 'referral_master_5'],
   notifications_unread: 3,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { DollarSign, TrendingUp, Users, Gift } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import { formatDiamonds, diamondsToINR } from '@/lib/diamondUtils';
 import { useLanguage } from '@/lib/LanguageContext';
 import { mockUser } from '@/lib/mockData';
 import { enhancements_en, enhancements_hi } from '@/lib/translationsEnhanced';
@@ -13,8 +14,8 @@ export const QuickStats = () => {
     {
       icon: DollarSign,
       label: te.stats.totalEarned,
-      value: formatCurrency(mockUser.total_earned || 45250.75),
-      sublabel: te.stats.lifetime,
+      value: formatDiamonds(mockUser.total_earned_diamonds || 226253),
+      sublabel: `${formatCurrency(diamondsToINR(mockUser.total_earned_diamonds || 226253))}`,
       color: '#10B981'
     },
     {
@@ -27,15 +28,15 @@ export const QuickStats = () => {
     {
       icon: Users,
       label: te.stats.referralEarnings,
-      value: formatCurrency(5200.25),
-      sublabel: te.stats.lifetime,
+      value: formatDiamonds(26001), // 5200.25 * 5
+      sublabel: `${formatCurrency(5200.25)}`,
       color: '#8B5CF6'
     },
     {
       icon: Gift,
       label: te.stats.scratchWins,
-      value: formatCurrency(2120),
-      sublabel: te.stats.lifetime,
+      value: formatDiamonds(10600), // 2120 * 5
+      sublabel: `${formatCurrency(2120)}`,
       color: '#F59E0B'
     }
   ];

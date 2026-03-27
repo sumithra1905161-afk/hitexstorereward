@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Gift, UserPlus, MapPin, QrCode as QrCodeIcon, Clock, AlertCircle, History } from 'lucide-react';
+import { Gift, UserPlus, MapPin, QrCode as QrCodeIcon, Clock, AlertCircle, History, TrendingUp } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { UserLayout } from '@/components/Layout';
 import { mockUser, mockScratchCards } from '@/lib/mockData';
 import { formatCurrency, formatMobileNumber } from '@/lib/utils';
+import { formatDiamonds, diamondsToINR, formatDiamondsWithINR } from '@/lib/diamondUtils';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -29,8 +30,11 @@ export default function HomePage() {
   const unscratched = mockScratchCards.filter(c => !c.scratched).length;
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const [isQrOpen, setIsQrOpen] = useState(false);
-  const [withdrawForm, setWithdrawForm] = useState({ amount: '', upi_id: mockUser.upi_id });
+  const [withdrawForm, setWithdrawForm] = useState({ diamonds: '', upi_id: mockUser.upi_id });
   const [pendingWithdrawal, setPendingWithdrawal] = useState(mockUser.pending_withdrawal);
+
+  // Calculate INR conversion in real-time
+  const withdrawalINR = withdrawForm.diamonds ? diamondsToINR(parseFloat(withdrawForm.diamonds)) : 0;
 
   const handleWithdrawClick = () => {
     if (pendingWithdrawal) {
@@ -39,19 +43,34 @@ export default function HomePage() {
       });
       return;
     }
-    setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
+    setWithdrawForm({ diamonds: '', upi_id: mockUser.upi_id });
     setIsWithdrawOpen(true);
   };
 
   const handleWithdraw = () => {
-    if (parseFloat(withdrawForm.amount) > mockUser.balance) {
+    const diamondsToWithdraw = parseFloat(withdrawForm.diamonds);
+    
+    if (diamondsToWithdraw > mockUser.balance_diamonds) {
       toast.error(t('home.insufficientBalance'));
       return;
     }
     
+    if (diamondsToWithdraw < 2500) {
+      toast.error('Minimum withdrawal is 2,500 💎 (₹500)');
+      return;
+    }
+    
+    if (diamondsToWithdraw > 250000) {
+      toast.error('Maximum withdrawal is 250,000 💎 (₹50,000)');
+      return;
+    }
+    
+    const inrAmount = diamondsToINR(diamondsToWithdraw);
+    
     // Create pending withdrawal
     const withdrawal = {
-      amount: parseFloat(withdrawForm.amount),
+      diamonds: diamondsToWithdraw,
+      amount: inrAmount,
       upi_id: withdrawForm.upi_id,
       requested_at: new Date().toISOString(),
       status: 'pending'
@@ -61,12 +80,14 @@ export default function HomePage() {
     mockUser.pending_withdrawal = withdrawal;
     
     toast.success(t('home.withdrawalSuccess'), {
-      description: `${formatCurrency(parseFloat(withdrawForm.amount))} → ${withdrawForm.upi_id}`,
+      description: `${formatDiamonds(diamondsToWithdraw)} → ${formatCurrency(inrAmount)} to ${withdrawForm.upi_id}`,
       duration: 5000,
     });
     setIsWithdrawOpen(false);
-    setWithdrawForm({ amount: '', upi_id: mockUser.upi_id });
+    setWithdrawForm({ diamonds: '', upi_id: mockUser.upi_id });
   };
+
+  const balanceInfo = formatDiamondsWithINR(mockUser.balance_diamonds);
 
   return (
     <UserLayout>
@@ -91,7 +112,10 @@ export default function HomePage() {
                       {t('home.pendingWithdrawalAmount')}
                     </p>
                     <p className="text-2xl font-mono font-black text-[#F59E0B]">
-                      {formatCurrency(pendingWithdrawal.amount)}
+                      {formatDiamonds(pendingWithdrawal.diamonds)}
+                    </p>
+                    <p className="text-sm text-[#A1A1AA] mt-1">
+                      = {formatCurrency(pendingWithdrawal.amount)}
                     </p>
                   </div>
                   <div>
@@ -122,15 +146,27 @@ export default function HomePage() {
 
         {/* Balance Section */}
         <section data-testid="balance-section" className="space-y-4">
-          <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
-            {t('home.availableBalance')}
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
+              {t('home.availableBalance')}
+            </p>
+            <div className="bg-[#10B981]/10 border border-[#10B981] px-3 py-1 rounded-full">
+              <p className="text-xs font-bold text-[#10B981]">{t('home.earnRate')}</p>
+            </div>
+          </div>
           <h1 
             data-testid="user-balance" 
-            className="text-4xl sm:text-6xl lg:text-8xl font-mono font-black text-white tracking-tighter break-words"
+            className="text-4xl sm:text-6xl lg:text-8xl font-mono font-black text-white tracking-tighter break-words flex items-baseline gap-4"
           >
-            {formatCurrency(mockUser.balance)}
+            {balanceInfo.formatted}
           </h1>
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-[#10B981]" />
+            <p className="text-lg font-semibold text-[#10B981]">
+              {t('common.worth')} {balanceInfo.inrFormatted}
+            </p>
+            <span className="text-[#71717A] text-sm">({t('home.conversionRate')})</span>
+          </div>
           <div className="flex flex-wrap gap-3 sm:gap-4 mt-6">
             <button
               onClick={handleWithdrawClick}
@@ -279,14 +315,26 @@ export default function HomePage() {
               <DialogTitle className="text-2xl font-bold text-white">{t('home.withdrawTitle')}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 mt-4">
+              {/* Available Balance */}
               <div className="bg-[#10B981] bg-opacity-10 border border-[#10B981] rounded-lg p-4">
                 <p className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold mb-2">
                   {t('home.availableBalance')}
                 </p>
                 <p className="text-[#10B981] font-mono text-2xl sm:text-3xl font-black break-words">
-                  {formatCurrency(mockUser.balance)}
+                  {balanceInfo.formatted}
+                </p>
+                <p className="text-sm text-[#A1A1AA] mt-1">
+                  {t('common.worth')} {balanceInfo.inrFormatted}
                 </p>
               </div>
+
+              {/* Conversion Rate Info */}
+              <div className="bg-[#09090B] border border-[#333333] rounded-lg p-3 flex items-center justify-between">
+                <span className="text-xs text-[#A1A1AA]">{t('home.conversionRate')}</span>
+                <TrendingUp className="w-4 h-4 text-[#10B981]" />
+              </div>
+
+              {/* Diamonds Input */}
               <div className="space-y-2">
                 <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
                   {t('home.withdrawalAmount')}
@@ -294,12 +342,28 @@ export default function HomePage() {
                 <Input
                   type="number"
                   placeholder={t('home.enterAmount')}
-                  value={withdrawForm.amount}
-                  onChange={(e) => setWithdrawForm({ ...withdrawForm, amount: e.target.value })}
+                  value={withdrawForm.diamonds}
+                  onChange={(e) => setWithdrawForm({ ...withdrawForm, diamonds: e.target.value })}
                   data-testid="withdraw-amount-input-home"
                   className="bg-[#09090B] border border-[#222222] text-white text-xl sm:text-2xl font-mono"
                 />
+                {withdrawForm.diamonds && (
+                  <div className="bg-[#10B981]/10 border border-[#10B981] rounded-lg p-3 mt-2">
+                    <p className="text-xs text-[#A1A1AA] mb-1">{t('home.youWillReceive')}</p>
+                    <p className="text-2xl font-bold text-[#10B981]">
+                      {formatCurrency(withdrawalINR)}
+                    </p>
+                  </div>
+                )}
               </div>
+
+              {/* Min/Max Limits */}
+              <div className="flex justify-between text-xs text-[#71717A]">
+                <span>{t('home.minWithdrawal')}</span>
+                <span>{t('home.maxWithdrawal')}</span>
+              </div>
+
+              {/* UPI ID */}
               <div className="space-y-2">
                 <Label className="text-xs tracking-[0.2em] uppercase text-[#A1A1AA] font-bold">
                   {t('home.upiId')}
@@ -312,10 +376,13 @@ export default function HomePage() {
                   className="bg-[#09090B] border border-[#222222] text-white font-mono"
                 />
               </div>
+
+              {/* Confirm Button */}
               <Button
                 onClick={handleWithdraw}
                 data-testid="confirm-withdraw-btn-home"
-                className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-6 text-base"
+                disabled={!withdrawForm.diamonds || parseFloat(withdrawForm.diamonds) < 2500}
+                className="w-full bg-[#10B981] text-black hover:bg-[#059669] font-bold uppercase tracking-wide py-6 text-base disabled:bg-[#333333] disabled:text-[#71717A] disabled:cursor-not-allowed"
               >
                 {t('home.confirmWithdrawal')}
               </Button>
